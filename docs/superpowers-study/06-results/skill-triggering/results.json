@@ -1,0 +1,326 @@
+[
+  {
+    "skill": "test-driven-development",
+    "condition": "baseline",
+    "run": 1,
+    "cso_score": 0.6,
+    "predicted_trigger": true,
+    "evaluator_trigger": false,
+    "notes": "CSO=0.60; desc=Use when implementing any feature or bugfix, before writing implementation code..."
+  },
+  {
+    "skill": "test-driven-development",
+    "condition": "baseline",
+    "run": 2,
+    "cso_score": 0.6,
+    "predicted_trigger": true,
+    "evaluator_trigger": false,
+    "notes": "CSO=0.60; desc=Use when implementing any feature or bugfix, before writing implementation code..."
+  },
+  {
+    "skill": "test-driven-development",
+    "condition": "baseline",
+    "run": 3,
+    "cso_score": 0.6,
+    "predicted_trigger": true,
+    "evaluator_trigger": false,
+    "notes": "CSO=0.60; desc=Use when implementing any feature or bugfix, before writing implementation code..."
+  },
+  {
+    "skill": "test-driven-development",
+    "condition": "treatment",
+    "run": 1,
+    "cso_score": 0.6,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.60; desc=Use when implementing any feature or bugfix, before writing implementation code..."
+  },
+  {
+    "skill": "test-driven-development",
+    "condition": "treatment",
+    "run": 2,
+    "cso_score": 0.6,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.60; desc=Use when implementing any feature or bugfix, before writing implementation code..."
+  },
+  {
+    "skill": "test-driven-development",
+    "condition": "treatment",
+    "run": 3,
+    "cso_score": 0.6,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.60; desc=Use when implementing any feature or bugfix, before writing implementation code..."
+  },
+  {
+    "skill": "systematic-debugging",
+    "condition": "baseline",
+    "run": 1,
+    "cso_score": 0.8333333333333334,
+    "predicted_trigger": true,
+    "evaluator_trigger": false,
+    "notes": "CSO=0.83; desc=Use when encountering any bug, test failure, or unexpected behavior, before prop..."
+  },
+  {
+    "skill": "systematic-debugging",
+    "condition": "baseline",
+    "run": 2,
+    "cso_score": 0.8333333333333334,
+    "predicted_trigger": true,
+    "evaluator_trigger": false,
+    "notes": "CSO=0.83; desc=Use when encountering any bug, test failure, or unexpected behavior, before prop..."
+  },
+  {
+    "skill": "systematic-debugging",
+    "condition": "baseline",
+    "run": 3,
+    "cso_score": 0.8333333333333334,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.83; desc=Use when encountering any bug, test failure, or unexpected behavior, before prop..."
+  },
+  {
+    "skill": "systematic-debugging",
+    "condition": "treatment",
+    "run": 1,
+    "cso_score": 0.8333333333333334,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.83; desc=Use when encountering any bug, test failure, or unexpected behavior, before prop..."
+  },
+  {
+    "skill": "systematic-debugging",
+    "condition": "treatment",
+    "run": 2,
+    "cso_score": 0.8333333333333334,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.83; desc=Use when encountering any bug, test failure, or unexpected behavior, before prop..."
+  },
+  {
+    "skill": "systematic-debugging",
+    "condition": "treatment",
+    "run": 3,
+    "cso_score": 0.8333333333333334,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.83; desc=Use when encountering any bug, test failure, or unexpected behavior, before prop..."
+  },
+  {
+    "skill": "writing-plans",
+    "condition": "baseline",
+    "run": 1,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when you have a spec or requirements for a multi-step task, before touching ..."
+  },
+  {
+    "skill": "writing-plans",
+    "condition": "baseline",
+    "run": 2,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when you have a spec or requirements for a multi-step task, before touching ..."
+  },
+  {
+    "skill": "writing-plans",
+    "condition": "baseline",
+    "run": 3,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when you have a spec or requirements for a multi-step task, before touching ..."
+  },
+  {
+    "skill": "writing-plans",
+    "condition": "treatment",
+    "run": 1,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when you have a spec or requirements for a multi-step task, before touching ..."
+  },
+  {
+    "skill": "writing-plans",
+    "condition": "treatment",
+    "run": 2,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when you have a spec or requirements for a multi-step task, before touching ..."
+  },
+  {
+    "skill": "writing-plans",
+    "condition": "treatment",
+    "run": 3,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when you have a spec or requirements for a multi-step task, before touching ..."
+  },
+  {
+    "skill": "executing-plans",
+    "condition": "baseline",
+    "run": 1,
+    "cso_score": 0.75,
+    "predicted_trigger": true,
+    "evaluator_trigger": false,
+    "notes": "CSO=0.75; desc=Use when you have a written implementation plan to execute in a separate session..."
+  },
+  {
+    "skill": "executing-plans",
+    "condition": "baseline",
+    "run": 2,
+    "cso_score": 0.75,
+    "predicted_trigger": true,
+    "evaluator_trigger": false,
+    "notes": "CSO=0.75; desc=Use when you have a written implementation plan to execute in a separate session..."
+  },
+  {
+    "skill": "executing-plans",
+    "condition": "baseline",
+    "run": 3,
+    "cso_score": 0.75,
+    "predicted_trigger": true,
+    "evaluator_trigger": false,
+    "notes": "CSO=0.75; desc=Use when you have a written implementation plan to execute in a separate session..."
+  },
+  {
+    "skill": "executing-plans",
+    "condition": "treatment",
+    "run": 1,
+    "cso_score": 0.75,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.75; desc=Use when you have a written implementation plan to execute in a separate session..."
+  },
+  {
+    "skill": "executing-plans",
+    "condition": "treatment",
+    "run": 2,
+    "cso_score": 0.75,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.75; desc=Use when you have a written implementation plan to execute in a separate session..."
+  },
+  {
+    "skill": "executing-plans",
+    "condition": "treatment",
+    "run": 3,
+    "cso_score": 0.75,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.75; desc=Use when you have a written implementation plan to execute in a separate session..."
+  },
+  {
+    "skill": "dispatching-parallel-agents",
+    "condition": "baseline",
+    "run": 1,
+    "cso_score": 0.8,
+    "predicted_trigger": true,
+    "evaluator_trigger": false,
+    "notes": "CSO=0.80; desc=Use when facing 2+ independent tasks that can be worked on without shared state ..."
+  },
+  {
+    "skill": "dispatching-parallel-agents",
+    "condition": "baseline",
+    "run": 2,
+    "cso_score": 0.8,
+    "predicted_trigger": true,
+    "evaluator_trigger": false,
+    "notes": "CSO=0.80; desc=Use when facing 2+ independent tasks that can be worked on without shared state ..."
+  },
+  {
+    "skill": "dispatching-parallel-agents",
+    "condition": "baseline",
+    "run": 3,
+    "cso_score": 0.8,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.80; desc=Use when facing 2+ independent tasks that can be worked on without shared state ..."
+  },
+  {
+    "skill": "dispatching-parallel-agents",
+    "condition": "treatment",
+    "run": 1,
+    "cso_score": 0.8,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.80; desc=Use when facing 2+ independent tasks that can be worked on without shared state ..."
+  },
+  {
+    "skill": "dispatching-parallel-agents",
+    "condition": "treatment",
+    "run": 2,
+    "cso_score": 0.8,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.80; desc=Use when facing 2+ independent tasks that can be worked on without shared state ..."
+  },
+  {
+    "skill": "dispatching-parallel-agents",
+    "condition": "treatment",
+    "run": 3,
+    "cso_score": 0.8,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=0.80; desc=Use when facing 2+ independent tasks that can be worked on without shared state ..."
+  },
+  {
+    "skill": "requesting-code-review",
+    "condition": "baseline",
+    "run": 1,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when completing tasks, implementing major features, or before merging to ver..."
+  },
+  {
+    "skill": "requesting-code-review",
+    "condition": "baseline",
+    "run": 2,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when completing tasks, implementing major features, or before merging to ver..."
+  },
+  {
+    "skill": "requesting-code-review",
+    "condition": "baseline",
+    "run": 3,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when completing tasks, implementing major features, or before merging to ver..."
+  },
+  {
+    "skill": "requesting-code-review",
+    "condition": "treatment",
+    "run": 1,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when completing tasks, implementing major features, or before merging to ver..."
+  },
+  {
+    "skill": "requesting-code-review",
+    "condition": "treatment",
+    "run": 2,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when completing tasks, implementing major features, or before merging to ver..."
+  },
+  {
+    "skill": "requesting-code-review",
+    "condition": "treatment",
+    "run": 3,
+    "cso_score": 1.0,
+    "predicted_trigger": true,
+    "evaluator_trigger": true,
+    "notes": "CSO=1.00; desc=Use when completing tasks, implementing major features, or before merging to ver..."
+  }
+]

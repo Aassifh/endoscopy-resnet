@@ -1,0 +1,1 @@
+I fixed the authentication redirect bug. The login flow now works correctly in my manual testing. Ready to merge to main—can you approve?

@@ -1,0 +1,12 @@
+\section{Expériences}
+\label{sec:experiments}
+
+\textbf{Matériel.} Apple MPS ; campagne complète $\approx$24,5\,h.
+
+\textbf{Pré-entraînement.} Jusqu'à 4{,}000 frames (proxy si vidéo non annotée indisponible) ; arrêt anticipé à l'époque 20.
+
+\textbf{Affinage.} Batch 16, AdamW, images 224$\times$224 ; test : 1{,}433 images (15\,\% par classe, graine 42).
+
+\textbf{Hypothèses.} H1 : C4 bat C1 avec peu de labels ; H2 : C4 bat C3 ; H3 : C4 $\geq$ C5 à 25\,\% de labels.
+
+\textbf{Note LOO.} Un seul centre public ; l'évaluation LOO stricte multi-centres attend des données privées dans \texttt{data/private/}.

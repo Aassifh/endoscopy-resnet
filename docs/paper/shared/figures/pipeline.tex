@@ -1,0 +1,32 @@
+% Fig. 1 — CNN-JEPA + fine-tune pipeline
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  node distance=0.55cm and 0.7cm,
+  box/.style={draw, rounded corners, align=center, minimum width=2.1cm, minimum height=0.75cm, font=\small},
+  arr/.style={->, >=stealth, thick}
+]
+  \node[box] (frames) {Unlabeled\\frames};
+  \node[box, right=of frames] (mask) {Block\\mask};
+  \node[box, right=of mask] (ctx) {Context\\encoder};
+  \node[box, below=of ctx] (se) {Mask-aware\\SE};
+  \node[box, right=of ctx] (pred) {Conv\\predictor};
+  \node[box, below=of pred] (tgt) {Target encoder\\(EMA)};
+  \node[box, below=1.2cm of mask] (loss) {Latent\\L2 loss};
+  \node[box, below=1.2cm of se] (labeled) {Labeled\\3-class};
+  \node[box, right=of labeled] (ft) {Fine-tune\\\backbone};
+  \node[box, right=of ft] (head) {Linear\\head};
+
+  \draw[arr] (frames) -- (mask);
+  \draw[arr] (mask) -- (ctx);
+  \draw[arr] (ctx) -- (se);
+  \draw[arr] (se) -- (pred);
+  \draw[arr] (pred) -- (loss);
+  \draw[arr] (tgt) -- (loss);
+  \draw[arr, dashed] (ctx) -- node[above, font=\scriptsize] {load weights} (ft);
+  \draw[arr] (labeled) -- (ft);
+  \draw[arr] (ft) -- (head);
+\end{tikzpicture}
+\caption{CNN-JEPA pretraining (top) and supervised fine-tuning (bottom). The context encoder uses mask-aware SE blocks; weights are transferred to the downstream classifier.}
+\label{fig:pipeline}
+\end{figure}

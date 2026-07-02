@@ -1,0 +1,8 @@
+{
+  "run_id": "C10_summary",
+  "folds": 1,
+  "macro_f1_mean": 0.9102609479799736,
+  "per_fold": {
+    "C4_fold_simula": 0.9102609479799736
+  }
+}

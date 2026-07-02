@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Revue comparative des architectures pour la classification endoscopique multi-classes</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 22mm 20mm 25mm 20mm;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 11pt;
+      line-height: 1.45;
+      color: #1a1a1a;
+      max-width: 170mm;
+      margin: 0 auto;
+      padding: 0;
+    }
+    h1 {
+      font-size: 15pt;
+      font-weight: bold;
+      text-align: center;
+      margin: 0 0 8pt;
+      line-height: 1.25;
+    }
+    h2 {
+      font-size: 12pt;
+      font-weight: bold;
+      margin: 18pt 0 6pt;
+      border-bottom: 0.5pt solid #333;
+      padding-bottom: 2pt;
+    }
+    h3 {
+      font-size: 11pt;
+      font-weight: bold;
+      margin: 12pt 0 4pt;
+    }
+    .meta {
+      text-align: center;
+      font-size: 10pt;
+      margin-bottom: 16pt;
+      color: #333;
+    }
+    .meta p { margin: 2pt 0; }
+    .abstract {
+      margin: 14pt 0;
+      padding: 10pt 12pt;
+      border: 0.5pt solid #666;
+      background: #fafafa;
+      text-align: justify;
+    }
+    .abstract-title {
+      font-weight: bold;
+      font-size: 10pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5pt;
+      margin-bottom: 6pt;
+    }
+    .keywords {
+      font-size: 10pt;
+      margin-top: 8pt;
+      font-style: italic;
+    }
+    p { margin: 0 0 8pt; text-align: justify; }
+    ul, ol { margin: 0 0 8pt; padding-left: 18pt; }
+    li { margin-bottom: 3pt; text-align: justify; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9.5pt;
+      margin: 8pt 0 12pt;
+    }
+    th, td {
+      border: 0.5pt solid #444;
+      padding: 4pt 6pt;
+      text-align: center;
+    }
+    th {
+      background: #eee;
+      font-weight: bold;
+    }
+    td.left { text-align: left; }
+    .caption {
+      font-size: 9pt;
+      font-style: italic;
+      margin: -6pt 0 10pt;
+      text-align: left;
+    }
+    .note {
+      font-size: 9.5pt;
+      padding: 8pt;
+      background: #fff8e6;
+      border-left: 3pt solid #c90;
+      margin: 10pt 0;
+    }
+    .placeholder-note {
+      font-size: 9.5pt;
+      padding: 8pt;
+      background: #f0f0f0;
+      border-left: 3pt solid #888;
+      margin: 10pt 0;
+      font-style: italic;
+    }
+    .footer {
+      margin-top: 20pt;
+      padding-top: 8pt;
+      border-top: 0.5pt solid #999;
+      font-size: 9pt;
+      color: #444;
+    }
+    .page-break { page-break-before: always; }
+    strong { font-weight: bold; }
+    em { font-style: italic; }
+    .ref { font-size: 9.5pt; padding-left: 14pt; text-indent: -14pt; margin-bottom: 4pt; }
+    .sample-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10pt;
+      margin: 10pt 0 4pt;
+    }
+    .sample-card {
+      text-align: center;
+      border: 0.5pt solid #888;
+      padding: 6pt;
+      background: #fff;
+      page-break-inside: avoid;
+    }
+    .sample-card img {
+      width: 100%;
+      height: 52mm;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      background: #111;
+    }
+    .sample-title {
+      font-size: 10pt;
+      font-weight: bold;
+      margin: 6pt 0 2pt;
+    }
+    .sample-meta {
+      font-size: 8.5pt;
+      color: #333;
+      line-height: 1.35;
+    }
+    .sample-ok { color: #0a6b0a; font-weight: bold; }
+    .placeholder-box {
+      width: 100%;
+      height: 52mm;
+      background: #ccc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 10pt;
+      font-style: italic;
+      margin: 0 auto;
+    }
+    .diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 12pt 0;
+      page-break-inside: avoid;
+    }
+    .diagram-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8pt;
+      flex-wrap: wrap;
+      margin: 4pt 0;
+    }
+    .diagram-box {
+      border: 1pt solid #333;
+      padding: 6pt 10pt;
+      font-size: 9pt;
+      text-align: center;
+      background: #f5f5f5;
+      min-width: 70pt;
+    }
+    .diagram-box.highlight {
+      background: #e8f0ff;
+      border-color: #336;
+    }
+    .diagram-box.se {
+      background: #fff3e0;
+      border-color: #c60;
+    }
+    .diagram-arrow {
+      font-size: 14pt;
+      color: #333;
+      line-height: 1;
+    }
+    .diagram-label {
+      font-size: 8pt;
+      color: #555;
+      font-style: italic;
+    }
+    code { font-family: "Courier New", monospace; font-size: 9pt; }
+    .arch-se { background: #e8f4fd; }
+    .arch-dual { background: #f0fde8; }
+    .bar-chart { margin: 10pt 0 14pt; page-break-inside: avoid; }
+    .bar-row { display: flex; align-items: center; margin: 3pt 0; font-size: 9pt; }
+    .bar-label { width: 38mm; text-align: right; padding-right: 6pt; flex-shrink: 0; }
+    .bar-track { flex: 1; background: #eee; height: 10pt; border: 0.5pt solid #999; }
+    .bar-fill { height: 100%; background: #2c5282; }
+    .bar-fill.se { background: #2b6cb0; }
+    .bar-fill.dual { background: #276749; }
+    .bar-value { width: 14mm; padding-left: 4pt; font-size: 8.5pt; }
+    .result-highlight {
+      padding: 8pt 10pt;
+      background: #e8f4fd;
+      border-left: 3pt solid #2b6cb0;
+      margin: 10pt 0;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Revue comparative des architectures pour la classification endoscopique multi-classes&nbsp;:<br/>ResNet-50, SE-ResNet-50 et dual-stream couleur-texture</h1>
+
+<div class="meta">
+  <p><strong>Hamza AASSIF</strong></p>
+  <p>Recherche indépendante — projet <em>endoscopy-resnet</em></p>
+  <p>Juin 2026</p>
+</div>
+
+<div class="abstract">
+  <div class="abstract-title">Résumé</div>
+  <p><strong>Contexte.</strong> La classification automatique d’images endoscopiques digestives exige des architectures capables de discriminer repères anatomiques, lésions pathologiques, procédures teintées et indicateurs de qualité procédurale, dans des conditions d’éclairage et de coloration très variables.</p>
+  <p><strong>Objectif.</strong> Comparer systématiquement trois familles d’architectures — <strong>ResNet-50</strong> (baseline mono-flux RGB), <strong>SE-ResNet-50</strong> (recalibrage canal par blocs Squeeze-and-Excitation) et <strong>dual-stream couleur-texture</strong> (fusion ResNet-50 RGB + branche HSV/LBP) — sur la taxonomie complète <strong>HyperKvasir (23 classes)</strong>, en régimes <em>from scratch</em> et <em>fine-tune ImageNet</em>.</p>
+  <p><strong>Méthodes.</strong> Protocole benchmark B0–B6 documenté&nbsp;: B0/B1 sur Kvasir v1 (4 classes, résultats réels)&nbsp;; B2–B6 sur HyperKvasir (splits stratifiés 70/15/15, seed 42). Métrique principale&nbsp;: macro-F1. Sélection des checkpoints par validation macro-F1 maximale.</p>
+  <p><strong>Résultats.</strong> Sur <strong>Kvasir v1</strong>, le baseline B0 atteint <strong>70,3&nbsp;% d’exactitude</strong> et <strong>0,689 macro-F1</strong> (test)&nbsp;; B1 (Optuna) atteint <strong>76,0&nbsp;%</strong> et <strong>0,749 macro-F1</strong>. Sur <strong>HyperKvasir (23 classes)</strong>, les campagnes B2–B6 donnent (test)&nbsp;: B2 87,9 % / F1 0.585, B3 72,5 % / F1 0.439, B4 88,2 % / F1 0.577, B5 75,5 % / F1 0.448, B6 88,8 % / F1 0.586.</p>
+  <p><strong>Conclusions.</strong> Sur HyperKvasir, le <strong>SE-ResNet-50 ImageNet (B4)</strong> atteint <strong>88,2&nbsp;% d’exactitude</strong> et <strong>0,577 macro-F1</strong> (test), légèrement sous le ResNet-50 ImageNet (B2&nbsp;: 0,585) et le dual-stream ImageNet (B6&nbsp;: 0,586). En scratch, le SE-ResNet (B3, F1&nbsp;0,439) reste nettement inférieur au transfer learning. Sur Kvasir v1, le rappel polype (~48&nbsp;%) reste insuffisant cliniquement. Cette revue v1.1 intègre l’intégralité du plan et les résultats HyperKvasir B2–B6.</p>
+  <p class="keywords"><strong>Mots-clés&nbsp;:</strong> endoscopie digestive, HyperKvasir, ResNet, SE-ResNet, dual-stream, couleur-texture, LBP, classification multi-classes, macro-F1, apprentissage par transfert, aide au diagnostic.</p>
+</div>
+
+<h2>1. Introduction</h2>
+
+<h3>1.1 Motivation clinique</h3>
+<p>Le cancer colorectal demeure une cause majeure de morbidité et de mortalité. L’efficacité de la coloscopie repose sur l’inspection complète de la muqueuse, la confirmation de l’intubation cæcale, le taux de détection des adénomes (ADR) et la documentation des repères anatomiques. Les systèmes d’aide à la détection (CAD) analysent les images en temps réel ou différé pour repérer polypes, inflammations, œsophagites, scores de préparation (BBPS) et repères procéduraux.</p>
+<p>Les jeux publics <strong>Kvasir</strong> et <strong>HyperKvasir</strong> ont permis de standardiser l’évaluation des réseaux convolutifs sur l’imagerie digestive. HyperKvasir étend Kvasir à <strong>23 classes</strong> couvrant l’ensemble du tractus gastro-intestinal, avec un déséquilibre de classes reflétant la prévalence clinique réelle.</p>
+
+<h3>1.2 Limites du ResNet-50 mono-flux actuel</h3>
+<p>Le dépôt <em>endoscopy-resnet</em> expose actuellement un <strong>ResNet-50 from scratch mono-flux RGB</strong> sur 4 classes Kvasir v1. Les résultats réels (juin 2026) montrent une exactitude test de 76&nbsp;% (B1) mais un <strong>rappel polype de 48&nbsp;%</strong>, insuffisant pour un déploiement clinique. Les limites identifiées sont&nbsp;:</p>
+<ul>
+  <li><strong>Mono-modalité RGB</strong> — les textures muqueuses (polype vs ulcère) et les variations de couleur (sang, bile, luminosité) ne sont pas explicitement modélisées.</li>
+  <li><strong>Périmètre 4 classes</strong> — ne couvre pas la richesse taxonomique HyperKvasir (œsophagites, Barrett, grades colite, BBPS, procédures teintées).</li>
+  <li><strong>Absence de recalibrage canal</strong> — pas de mécanisme d’attention intra-feature (SE) pour pondérer les canaux selon le contexte endoscopique.</li>
+  <li><strong>Pas de pré-entraînement ImageNet</strong> — la condition B2 (transfer learning) n’était pas implémentée au moment des benchmarks Kvasir v1.</li>
+  <li><strong>Instabilité MPS</strong> — entraînements longs sur GPU Apple MPS sujets à corruption de checkpoints.</li>
+</ul>
+
+<h3>1.3 Questions de recherche (RQ1–RQ6)</h3>
+<table>
+  <tr><th>ID</th><th class="left">Question</th></tr>
+  <tr><td><strong>RQ1</strong></td><td class="left">Un ResNet-50 from scratch peut-il établir une baseline fiable sur un protocole standardisé (Kvasir v1, 4 classes)&nbsp;?</td></tr>
+  <tr><td><strong>RQ2</strong></td><td class="left">L’optimisation Optuna (B1) améliore-t-elle la macro-F1 par rapport aux hyperparamètres par défaut (B0)&nbsp;?</td></tr>
+  <tr><td><strong>RQ3</strong></td><td class="left">Le SE-ResNet-50 (recalibrage canal) surpasse-t-il le ResNet-50 sur HyperKvasir (23 classes), en scratch (B3) et ImageNet (B4)&nbsp;?</td></tr>
+  <tr><td><strong>RQ4</strong></td><td class="left">Le dual-stream couleur-texture (RGB + HSV/LBP) améliore-t-il la macro-F1 par rapport aux architectures mono-flux (B5/B6 vs B2/B3)&nbsp;?</td></tr>
+  <tr><td><strong>RQ5</strong></td><td class="left">Le fine-tune ImageNet améliore-t-il systématiquement les performances par rapport au scratch pour chaque architecture (B2 vs B0, B4 vs B3, B6 vs B5)&nbsp;?</td></tr>
+  <tr><td><strong>RQ6</strong></td><td class="left">Les résultats internes sont-ils comparables à l’état de l’art publié sous protocole équivalent (splits, classes, pré-entraînement, métrique)&nbsp;?</td></tr>
+</table>
+
+<h3>1.4 Apports de cette étude</h3>
+<ul>
+  <li>Comparaison systématique de <strong>trois architectures</strong> × <strong>deux régimes d’entraînement</strong> sur HyperKvasir.</li>
+  <li>Protocole reproductible B0–B6 avec métriques cliniquement pertinentes (macro-F1, rappel par classe, macro-rappel groupé).</li>
+  <li>Baseline interne documentée sur Kvasir v1 (B0 70,3&nbsp;% / B1 76,0&nbsp;% test accuracy).</li>
+  <li>Pipeline Pixi, registre de modèles extensible et checkpoints enrichis.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2>2. État de l’art</h2>
+
+<p>Le tableau suivant synthétise les travaux de référence et notre baseline interne. Les comparaisons directes sont limitées par des protocoles hétérogènes (splits, classes regroupées, métriques).</p>
+
+<p class="caption">Tableau 1 — Synthèse comparative de l’état de l’art en classification endoscopique.</p>
+<table>
+  <tr>
+    <th>Référence</th>
+    <th>Approche</th>
+    <th>Jeu / classes</th>
+    <th>Résultat rapporté</th>
+    <th>Pertinence</th>
+  </tr>
+  <tr>
+    <td class="left">Hu et al. 2018 (SE-Net)</td>
+    <td class="left">SE-ResNet, recalibrage canal</td>
+    <td>ImageNet</td>
+    <td>+0,9 pp top-1 vs ResNet</td>
+    <td class="left">Base théorique des blocs SE</td>
+  </tr>
+  <tr>
+    <td class="left">SE-ResNet + Kvasir v2 (IIETA 2024)</td>
+    <td class="left">SE-ResNet + optimisation</td>
+    <td>Kvasir v2, 8 classes</td>
+    <td>~99,7&nbsp;% accuracy</td>
+    <td class="left">Même domaine GI&nbsp;; protocole différent (feature selection)</td>
+  </tr>
+  <tr>
+    <td class="left">Borgli et al. 2020 (HyperKvasir)</td>
+    <td class="left">Benchmark dataset</td>
+    <td>23 classes, 10&nbsp;662 images</td>
+    <td>Référence taxonomique</td>
+    <td class="left"><strong>Jeu cible</strong> de cette étude</td>
+  </tr>
+  <tr>
+    <td class="left">Effimix / EfficientNet fusion (MDPI 2022)</td>
+    <td class="left">Dual CNN + fusion features</td>
+    <td>HyperKvasir multi-classes</td>
+    <td>~98&nbsp;% accuracy</td>
+    <td class="left">Concurrent dual-stream à citer</td>
+  </tr>
+  <tr>
+    <td class="left">Hybrid LBP+GLCM+RGB (Sensors 2022)</td>
+    <td class="left">CNN + descripteurs texture/couleur</td>
+    <td>Maladies GI</td>
+    <td>~99&nbsp;% (FFNN)</td>
+    <td class="left">Justifie branche texture explicite</td>
+  </tr>
+  <tr>
+    <td class="left">FRAN dual-branch (2024)</td>
+    <td class="left">Attention résiduelle + fusion contours</td>
+    <td>Kvasir / HyperKvasir</td>
+    <td>97&nbsp;%+</td>
+    <td class="left">Fusion sémantique + détail spatial</td>
+  </tr>
+  <tr>
+    <td class="left"><strong>Baseline interne (juin 2026)</strong></td>
+    <td class="left">ResNet-50 scratch + Optuna</td>
+    <td>Kvasir v1, 4 classes</td>
+    <td><strong>B0 test 70,3&nbsp;% acc, 0,689 F1</strong><br/><strong>B1 test 76,0&nbsp;% acc, 0,749 F1</strong></td>
+    <td class="left">Point de départ interne documenté</td>
+  </tr>
+</table>
+
+<div class="note">
+  <strong>Limites de comparaison directe.</strong> Splits différents, pré-entraînement variable, classes regroupées ou non, métriques parfois accuracy seule sur jeux équilibrés. Notre protocole impose <strong>macro-F1</strong>, <strong>rappel par classe</strong>, <strong>matrice de confusion</strong> et splits fixes documentés (seed 42).
+</div>
+
+<div class="page-break"></div>
+
+<h2>3. Taxonomie HyperKvasir (23 classes)</h2>
+
+<p>Les 23 classes officielles Simula sont organisées par groupe clinique. <strong>Exclusion explicite</strong>&nbsp;: pas de sous-types histologiques de polypes (hyperplasique vs adénomateux) — non présents dans les labels HyperKvasir.</p>
+
+<h3>3.1 Repères anatomiques (6 classes)</h3>
+<ul>
+  <li><code>normal-cecum</code> — cæcum normal (repère de fin de coloscopie)</li>
+  <li><code>normal-pylorus</code> — pylore normal</li>
+  <li><code>normal-z-line</code> — ligne Z œsogastrique</li>
+  <li><code>ileum</code> — iléon (endoscopie poussée)</li>
+  <li><code>retroflex-rectum</code> — rétroflexion rectale</li>
+  <li><code>retroflex-stomach</code> — rétroflexion gastrique</li>
+</ul>
+
+<h3>3.2 Polypes et procédures teintées (3 classes)</h3>
+<ul>
+  <li><code>polyp</code> — polype non teint</li>
+  <li><code>dyed-lifted-polyps</code> — polype soulevé par injection + teinture</li>
+  <li><code>dyed-resection-margins</code> — marges de résection teintées</li>
+</ul>
+
+<h3>3.3 Inflammation et pathologies (12 classes)</h3>
+<ul>
+  <li><code>oesophagitis-a</code> — œsophagite grade A (Los Angeles)</li>
+  <li><code>oesophagitis-b-d</code> — œsophagite grades B–D</li>
+  <li><code>barretts</code> — œsophage de Barrett</li>
+  <li><code>short-segment-barretts</code> — Barrett court segment</li>
+  <li><code>ulcerative-colitis-0-1</code> — colite ulcéreuse score 0–1 (Mayo endoscopique)</li>
+  <li><code>ulcerative-colitis-1-2</code> — colite ulcéreuse score 1–2</li>
+  <li><code>ulcerative-colitis-2-3</code> — colite ulcéreuse score 2–3</li>
+  <li><code>ulcerative-colitis-grade-1</code> — colite ulcéreuse grade 1</li>
+  <li><code>ulcerative-colitis-grade-2</code> — colite ulcéreuse grade 2</li>
+  <li><code>ulcerative-colitis-grade-3</code> — colite ulcéreuse grade 3</li>
+  <li><code>hemorrhoids</code> — hémorroïdes</li>
+  <li><code>impacted-stool</code> — fécalome / résidu fécal</li>
+</ul>
+
+<h3>3.4 Qualité et préparation (2 classes)</h3>
+<ul>
+  <li><code>bbps-0-1</code> — score BBPS 0–1 (préparation insuffisante)</li>
+  <li><code>bbps-2-3</code> — score BBPS 2–3 (préparation adéquate)</li>
+</ul>
+
+<h3>3.5 Regroupements pour le reporting</h3>
+<p>En complément des 23 classes fines, un <strong>macro-rappel groupé</strong> sera calculé&nbsp;: repères anatomiques / pathologies / procédures teintées / scores qualité — pour l’analyse clinique agrégée dans <code>benchmarks/ml/results/summary.md</code>.</p>
+
+<p class="caption">Figure 2 — Échantillons HyperKvasir par groupe clinique.</p>
+<div class="sample-grid">
+  <div class="sample-card">
+    <img src="assets/pdf_samples/hyperkvasir/hk_landmark_cecum.jpg" alt="Repère anatomique" />
+    <div class="sample-meta"><code>cecum</code><br/>Repère anatomique</div>
+  </div>
+  <div class="sample-card">
+    <img src="assets/pdf_samples/hyperkvasir/hk_polyp.jpg" alt="Polype" />
+    <div class="sample-meta"><code>polyps</code><br/>Polype</div>
+  </div>
+  <div class="sample-card">
+    <img src="assets/pdf_samples/hyperkvasir/hk_colitis.jpg" alt="Colite ulcéreuse grade 2" />
+    <div class="sample-meta"><code>ulcerative-colitis-grade-2</code><br/>Colite ulcéreuse grade 2</div>
+  </div>
+  <div class="sample-card">
+    <img src="assets/pdf_samples/hyperkvasir/hk_esophagitis.jpg" alt="Œsophagite grade A" />
+    <div class="sample-meta"><code>esophagitis-a</code><br/>Œsophagite grade A</div>
+  </div>
+</div>
+
+<h2>4. Architectures proposées</h2>
+
+<h3>4.1 ResNet-50 baseline (B0 / B1 / B2)</h3>
+<p>Architecture de référence&nbsp;: ResNet-50 avec blocs Bottleneck (expansion 4), ~23,5&nbsp;M paramètres, entrée RGB 224×224, sortie softmax à <em>N</em> classes.</p>
+<ul>
+  <li><strong>B0</strong> — from scratch, hyperparamètres par défaut (AdamW, lr=10<sup>−3</sup>, 15 époques). Évalué sur Kvasir v1 (4 classes).</li>
+  <li><strong>B1</strong> — from scratch + Optuna HPO (8 essais, objectif macro-F1 validation). Évalué sur Kvasir v1.</li>
+  <li><strong>B2</strong> — fine-tune ImageNet (torchvision ResNet-50 pré-entraîné, lr=10<sup>−4</sup>). Évalué sur HyperKvasir (23 classes).</li>
+</ul>
+
+<h3>4.2 SE-ResNet-50 (B3 / B4)</h3>
+<p>Extension du ResNet-50 par blocs <strong>Squeeze-and-Excitation</strong> (Hu et al., 2018). Chaque SEBottleneck intègre un SEBlock après la convolution 1×1 finale&nbsp;: GlobalAvgPool → FC(<em>C</em>/16) → ReLU → FC(<em>C</em>) → Sigmoid → recalibrage canal-wise.</p>
+
+<p class="caption">Figure 3 — Schéma du bloc Squeeze-and-Excitation (SEBlock).</p>
+<div class="diagram">
+  <div class="diagram-row">
+    <div class="diagram-box">Entrée<br/><em>C × H × W</em></div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box">Bottleneck<br/>conv 1×1 → 3×3 → 1×1</div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box se">SE Block</div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box">+ résidu</div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box highlight">Sortie<br/><em>C × H × W</em></div>
+  </div>
+  <div class="diagram-row" style="margin-top:8pt;">
+    <div class="diagram-box se">GlobalAvgPool</div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box se">FC → ReLU → FC</div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box se">Sigmoid → × canaux</div>
+  </div>
+  <div class="diagram-label">Recalibrage canal-wise&nbsp;: pondération adaptative selon le contexte couleur/luminosité endoscopique</div>
+</div>
+
+<ul>
+  <li><strong>B3</strong> — SE-ResNet-50 from scratch sur HyperKvasir.</li>
+  <li><strong>B4</strong> — SE-ResNet-50 avec transfert des poids ResNet-50 ImageNet (couches compatibles) + fine-tune tête 23 classes.</li>
+</ul>
+<p><strong>Hypothèse</strong>&nbsp;: le recalibrage canal améliore la robustesse aux variations de couleur (sang, bile, sur/sous-exposition) typiques de l’endoscopie.</p>
+
+<h3>4.3 Dual-stream couleur-texture (B5 / B6)</h3>
+<p>Architecture à deux flux fusionnés par concaténation de features&nbsp;:</p>
+<ul>
+  <li><strong>Flux 1 — RGB</strong>&nbsp;: ResNet-50 backbone → <em>f<sub>rgb</sub> ∈ ℝ<sup>2048</sup></em>.</li>
+  <li><strong>Flux 2 — Couleur-texture</strong>&nbsp;: carte 3 canaux (H du HSV + carte LBP + S du HSV) → TextureColorNet léger → <em>f<sub>tex</sub> ∈ ℝ<sup>512</sup></em>.</li>
+  <li><strong>Fusion</strong>&nbsp;: concat [<em>f<sub>rgb</sub></em> ; <em>f<sub>tex</sub></em>] → Linear(2560 → 23) → softmax.</li>
+</ul>
+
+<p class="caption">Figure 4 — Schéma dual-stream ResNet + couleur-texture (B5/B6).</p>
+<div class="diagram">
+  <div class="diagram-row">
+    <div class="diagram-box highlight">Image RGB<br/>224×224</div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box">ResNet-50<br/>backbone</div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box"><em>f<sub>rgb</sub></em><br/>2048-d</div>
+  </div>
+  <div class="diagram-row">
+    <div class="diagram-box highlight">RGB → HSV/LBP<br/>carte 3 canaux</div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box">TextureColorNet<br/>CNN léger</div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box"><em>f<sub>tex</sub></em><br/>512-d</div>
+  </div>
+  <div class="diagram-row">
+    <div class="diagram-box">Concat<br/>2560-d</div>
+    <span class="diagram-arrow">→</span>
+    <div class="diagram-box highlight">FC classifier<br/>23 classes</div>
+  </div>
+  <div class="diagram-label">Inspiré des approches hybrides LBP/GLCM (Sensors 2022) et dual-stream Effimix (MDPI 2022)</div>
+</div>
+
+<ul>
+  <li><strong>B5</strong> — dual-stream from scratch (les deux branches initialisées aléatoirement).</li>
+  <li><strong>B6</strong> — dual-stream avec branche RGB pré-entraînée ImageNet (TextureColorNet scratch).</li>
+</ul>
+
+<div class="page-break"></div>
+
+<h2>5. Matériel et méthodes</h2>
+
+<h3>5.1 Jeux de données et partitions</h3>
+
+<p><strong>Kvasir v1 (4 classes) — B0/B1</strong></p>
+<ul>
+  <li>Source&nbsp;: téléchargement Simula via <code>scripts/download_and_prepare_kvasir.py</code>.</li>
+  <li>Volume&nbsp;: 1&nbsp;400 train / 300 val / 300 test (350/75/75 par classe).</li>
+  <li>Classes&nbsp;: cæcum, pylore, polype, ulcère.</li>
+  <li>Split stratifié aléatoire (seed 42).</li>
+</ul>
+
+<p><strong>HyperKvasir (23 classes) — B2–B6</strong></p>
+<ul>
+  <li>Source&nbsp;: <code>hyper-kvasir-labeled-images.zip</code> (~3,9&nbsp;Go) via <code>scripts/download_and_prepare_hyperkvasir.py</code>.</li>
+  <li>Layout ImageFolder&nbsp;: <code>data/hyperkvasir/{train,val,test}/{classe}/</code>.</li>
+  <li>Split stratifié par classe&nbsp;: 70&nbsp;% train, 15&nbsp;% val, 15&nbsp;% test (seed 42).</li>
+  <li>Métadonnées&nbsp;: <code>class_counts.json</code>, <code>benchmark_meta.txt</code>.</li>
+</ul>
+
+<div class="note">
+  <strong>Limitation.</strong> Partitions au niveau image (pas patient). Les scores reflètent une évaluation recherche, pas une validation clinique prospective.
+</div>
+
+<h3>5.2 Augmentations et prétraitement</h3>
+<p><strong>Entraînement RGB</strong>&nbsp;: recadrage aléatoire, retournements horizontal/vertical, ColorJitter (luminosité, contraste, saturation), normalisation ImageNet (mean/std).</p>
+<p><strong>Branche texture (dual-stream)</strong>&nbsp;: conversion RGB → HSV, extraction LBP (rayon 1–2, P=8, normalisé), empilement H + LBP + S. Option de précalcul <code>--precompute-texture</code> pour accélérer l’entraînement.</p>
+
+<h3>5.3 Métriques d’évaluation</h3>
+<table>
+  <tr><th>Métrique</th><th>Rôle</th></tr>
+  <tr><td>Macro-F1</td><td class="left">Objectif principal — sélection checkpoint et reporting</td></tr>
+  <tr><td>F1 pondéré</td><td class="left">Synthèse tenant compte des fréquences de classes</td></tr>
+  <tr><td>Exactitude (accuracy)</td><td class="left">Comparaison avec travaux publiés</td></tr>
+  <tr><td>Rappel par classe</td><td class="left">Sensibilité clinique (polype, œsophagite, grades colite)</td></tr>
+  <tr><td>Matrice de confusion</td><td class="left">4×4 (Kvasir) ou 23×23 (HyperKvasir)</td></tr>
+  <tr><td>Macro-rappel groupé</td><td class="left">Repères / pathologies / procédures teintées / qualité</td></tr>
+</table>
+
+<h3>5.4 Protocole expérimental B0–B6</h3>
+<p class="caption">Tableau 2 — Matrice expérimentale complète.</p>
+<table>
+  <tr><th>ID</th><th>Architecture</th><th>Prétrain</th><th>Jeu</th><th>Description</th></tr>
+  <tr><td><strong>B0</strong></td><td>ResNet-50</td><td>none</td><td>Kvasir v1</td><td class="left">Baseline scratch — hyperparamètres par défaut</td></tr>
+  <tr><td><strong>B1</strong></td><td>ResNet-50 + Optuna</td><td>none</td><td>Kvasir v1</td><td class="left">HPO baseline — 8 essais, réentraînement 15 époques</td></tr>
+  <tr><td><strong>B2</strong></td><td>ResNet-50</td><td>ImageNet</td><td>HyperKvasir</td><td class="left">Fine-tune transfer learning</td></tr>
+  <tr><td><strong>B3</strong></td><td>SE-ResNet-50</td><td>none</td><td>HyperKvasir</td><td class="left">Recalibrage canal — scratch</td></tr>
+  <tr><td><strong>B4</strong></td><td>SE-ResNet-50</td><td>ImageNet</td><td>HyperKvasir</td><td class="left">SE + transfer learning</td></tr>
+  <tr><td><strong>B5</strong></td><td>Dual-stream couleur-texture</td><td>none</td><td>HyperKvasir</td><td class="left">RGB + HSV/LBP fusion concat</td></tr>
+  <tr><td><strong>B6</strong></td><td>Dual-stream couleur-texture</td><td>ImageNet (RGB)</td><td>HyperKvasir</td><td class="left">Branche RGB pré-entraînée</td></tr>
+</table>
+
+<p><strong>Hyperparamètres par défaut</strong>&nbsp;: scratch — 15–20 époques, AdamW, lr=10<sup>−3</sup>, batch 16&nbsp;; fine-tune — lr=10<sup>−4</sup>. Sélection par <strong>macro-F1 validation maximale</strong>. Matériel&nbsp;: Apple MPS (AMD Radeon Pro 5300M), repli CPU si instable.</p>
+
+<div class="page-break"></div>
+
+<h2>6. Résultats</h2>
+
+<h3>6.1 Kvasir v1 (4 classes) — résultats réels</h3>
+<p>Campagne exécutée le 13 juin 2026 sur images endoscopiques réelles Simula.</p>
+
+<p class="caption">Tableau 3 — Performance B0 vs B1 sur Kvasir v1 (résultats réels).</p>
+<table>
+  <tr>
+    <th>Modèle</th><th>Partition</th><th>Exactitude</th><th>Macro-F1</th>
+    <th>F1 pondéré</th><th>Rappel polype</th><th>Rappel ulcère</th>
+  </tr>
+  <tr><td>B0 Baseline</td><td>val</td><td>0,737</td><td>0,724</td><td>0,724</td><td>0,493</td><td>0,587</td></tr>
+  <tr><td>B0 Baseline</td><td>test</td><td>0,703</td><td>0,689</td><td>0,689</td><td>0,413</td><td>0,587</td></tr>
+  <tr><td>B1 Optuna</td><td>val</td><td>0,793</td><td>0,789</td><td>0,789</td><td>0,587</td><td>0,760</td></tr>
+  <tr><td>B1 Optuna</td><td>test</td><td>0,760</td><td>0,749</td><td>0,749</td><td>0,480</td><td>0,720</td></tr>
+</table>
+<p>B1 améliore la macro-F1 test de <strong>+0,060</strong> par rapport à B0. Rappels test B1&nbsp;: pylore 96&nbsp;%, cæcum 88&nbsp;%, ulcère 72&nbsp;%, polype 48&nbsp;%. Confusions principales&nbsp;: polype↔ulcère (20 polyps classés ulcère sur 75).</p>
+
+<p class="caption">Tableau 4 — Matrice de confusion B0 baseline (test). Lignes = vérité, colonnes = prédiction.</p>
+<table>
+  <tr><th></th><th>cæcum</th><th>polype</th><th>pylore</th><th>ulcère</th></tr>
+  <tr><td class="left"><strong>cæcum</strong></td><td>64</td><td>10</td><td>0</td><td>1</td></tr>
+  <tr><td class="left"><strong>polype</strong></td><td>9</td><td>31</td><td>13</td><td>22</td></tr>
+  <tr><td class="left"><strong>pylore</strong></td><td>0</td><td>0</td><td>72</td><td>3</td></tr>
+  <tr><td class="left"><strong>ulcère</strong></td><td>11</td><td>13</td><td>7</td><td>44</td></tr>
+</table>
+
+<p class="caption">Tableau 5 — Matrice de confusion B1 Optuna (test).</p>
+<table>
+  <tr><th></th><th>cæcum</th><th>polype</th><th>pylore</th><th>ulcère</th></tr>
+  <tr><td class="left"><strong>cæcum</strong></td><td>66</td><td>8</td><td>0</td><td>1</td></tr>
+  <tr><td class="left"><strong>polype</strong></td><td>12</td><td>36</td><td>7</td><td>20</td></tr>
+  <tr><td class="left"><strong>pylore</strong></td><td>0</td><td>0</td><td>72</td><td>3</td></tr>
+  <tr><td class="left"><strong>ulcère</strong></td><td>12</td><td>4</td><td>5</td><td>54</td></tr>
+</table>
+
+<p class="caption">Figure 5 — Échantillons Kvasir v1 (partition test) et prédictions B1.</p>
+<div class="sample-grid">
+  <div class="sample-card">
+    <img src="assets/pdf_samples/cecum.jpg" alt="Exemple cæcum Kvasir" />
+    <div class="sample-title">Cæcum</div>
+    <div class="sample-meta">Vérité terrain&nbsp;: cæcum<br/>Prédiction B1&nbsp;: cecum <span class="sample-ok">✓</span></div>
+  </div>
+  <div class="sample-card">
+    <img src="assets/pdf_samples/pylorus.jpg" alt="Exemple pylore Kvasir" />
+    <div class="sample-title">Pylore</div>
+    <div class="sample-meta">Vérité terrain&nbsp;: pylore<br/>Prédiction B1&nbsp;: pylorus <span class="sample-ok">✓</span></div>
+  </div>
+  <div class="sample-card">
+    <img src="assets/pdf_samples/polyp.jpg" alt="Exemple polype Kvasir" />
+    <div class="sample-title">Polype</div>
+    <div class="sample-meta">Vérité terrain&nbsp;: polype<br/>Prédiction B1&nbsp;: polyp <span class="sample-ok">✓</span></div>
+  </div>
+  <div class="sample-card">
+    <img src="assets/pdf_samples/ulcer.jpg" alt="Exemple ulcère Kvasir" />
+    <div class="sample-title">Ulcère</div>
+    <div class="sample-meta">Vérité terrain&nbsp;: ulcère<br/>Prédiction B1&nbsp;: ulcer <span class="sample-ok">✓</span></div>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<h3>6.2 HyperKvasir (23 classes) — B2–B6</h3>
+
+<p class="caption">Tableau 6 — Résultats HyperKvasir B2–B6 (test/val).</p>
+<table>
+  <tr>
+    <th>ID</th><th>Architecture</th><th>Prétrain</th><th>Partition</th>
+    <th>Exactitude</th><th>Macro-F1</th><th>F1 pondéré</th>
+  </tr>
+  <tr><td>B2</td><td>ResNet-50</td><td>ImageNet</td><td>val</td><td>89,6 %</td><td>0.591</td><td>0.890</td></tr>
+  <tr><td>B2</td><td>ResNet-50</td><td>ImageNet</td><td>test</td><td>87,9 %</td><td>0.585</td><td>0.874</td></tr>
+  <tr><td>B3</td><td>SE-ResNet-50</td><td>none</td><td>val</td><td>73,0 %</td><td>0.439</td><td>0.705</td></tr>
+  <tr><td>B3</td><td>SE-ResNet-50</td><td>none</td><td>test</td><td>72,5 %</td><td>0.439</td><td>0.700</td></tr>
+  <tr><td>B4</td><td>SE-ResNet-50</td><td>ImageNet</td><td>val</td><td>88,9 %</td><td>0.596</td><td>0.878</td></tr>
+  <tr><td>B4</td><td>SE-ResNet-50</td><td>ImageNet</td><td>test</td><td>88,2 %</td><td>0.577</td><td>0.870</td></tr>
+  <tr><td>B5</td><td>Dual-stream</td><td>none</td><td>val</td><td>78,2 %</td><td>0.472</td><td>0.755</td></tr>
+  <tr><td>B5</td><td>Dual-stream</td><td>none</td><td>test</td><td>75,5 %</td><td>0.448</td><td>0.726</td></tr>
+  <tr><td>B6</td><td>Dual-stream</td><td>ImageNet (RGB)</td><td>val</td><td>90,1 %</td><td>0.596</td><td>0.894</td></tr>
+  <tr><td>B6</td><td>Dual-stream</td><td>ImageNet (RGB)</td><td>test</td><td>88,8 %</td><td>0.586</td><td>0.881</td></tr>
+</table>
+
+<div class="result-highlight" id="seresnet-summary">
+  <strong>SE-ResNet-50 (B3 / B4).</strong> Scratch (B3)&nbsp;: macro-F1 test <strong>0,439</strong> (acc 72,5&nbsp;%) — nettement inférieur au fine-tune ImageNet. Avec transfer (B4)&nbsp;: macro-F1 test <strong>0,577</strong> (acc 88,2&nbsp;%), proche du ResNet-50 ImageNet (B2&nbsp;: 0,585) mais <em>sans gain</em> au-delà du pré-entraînement ResNet standard. <strong>RQ3</strong>&nbsp;: le recalibrage canal SE n’améliore pas la macro-F1 par rapport à B2 dans notre protocole 23 classes.
+</div>
+
+<p class="caption">Tableau 6bis — Synthèse test (macro-F1) par famille d’architecture.</p>
+<table>
+  <tr>
+    <th>Famille</th><th>Run</th><th>Prétrain</th><th>Exactitude test</th><th>Macro-F1 test</th>
+  </tr>
+  <tr><td>ResNet-50</td><td>B2</td><td>ImageNet</td><td>87,9&nbsp;%</td><td><strong>0,585</strong></td></tr>
+  <tr class="arch-se"><td><strong>SE-ResNet-50</strong></td><td>B3</td><td>none</td><td>72,5&nbsp;%</td><td>0,439</td></tr>
+  <tr class="arch-se"><td><strong>SE-ResNet-50</strong></td><td>B4</td><td>ImageNet</td><td>88,2&nbsp;%</td><td><strong>0,577</strong></td></tr>
+  <tr class="arch-dual"><td>Dual-stream</td><td>B5</td><td>none</td><td>75,5&nbsp;%</td><td>0,448</td></tr>
+  <tr class="arch-dual"><td>Dual-stream</td><td>B6</td><td>ImageNet (RGB)</td><td>88,8&nbsp;%</td><td><strong>0,586</strong></td></tr>
+</table>
+
+<p class="caption">Figure 6 — Macro-F1 test HyperKvasir (23 classes) par run B2–B6.</p>
+<div class="bar-chart">
+  <div class="bar-row"><div class="bar-label">B2 ResNet</div><div class="bar-track"><div class="bar-fill" style="width:58.5%"></div></div><div class="bar-value">0,585</div></div>
+  <div class="bar-row"><div class="bar-label"><strong>B3 SE-ResNet</strong></div><div class="bar-track"><div class="bar-fill se" style="width:43.9%"></div></div><div class="bar-value">0,439</div></div>
+  <div class="bar-row"><div class="bar-label"><strong>B4 SE-ResNet</strong></div><div class="bar-track"><div class="bar-fill se" style="width:57.7%"></div></div><div class="bar-value">0,577</div></div>
+  <div class="bar-row"><div class="bar-label">B5 Dual-stream</div><div class="bar-track"><div class="bar-fill dual" style="width:44.8%"></div></div><div class="bar-value">0,448</div></div>
+  <div class="bar-row"><div class="bar-label">B6 Dual-stream</div><div class="bar-track"><div class="bar-fill dual" style="width:58.6%"></div></div><div class="bar-value">0,586</div></div>
+</div>
+
+<h3>6.3 Comparaison avec l’existant</h3>
+<p class="caption">Tableau 7 — Comparaison littérature avec évaluation du protocole équivalent.</p>
+<table>
+  <tr>
+    <th>Référence</th><th>Métrique</th><th>Score publié</th>
+    <th>Notre résultat</th><th>Protocole équivalent&nbsp;?</th>
+  </tr>
+  <tr>
+    <td class="left">SE-ResNet Kvasir v2 (IIETA 2024)</td><td>Accuracy</td><td>~99,7&nbsp;%</td>    <td><strong>B4 88,2&nbsp;% acc / 0,577 F1</strong></td><td class="left">Non (8 vs 23 classes, feature selection)</td>
+  </tr>
+  <tr>
+    <td class="left">Effimix HyperKvasir (MDPI 2022)</td><td>Accuracy</td><td>~98&nbsp;%</td><td>B6 88,8&nbsp;% acc</td><td class="left">Partiel (dual-stream, splits non documentés)</td>
+  </tr>
+  <tr>
+    <td class="left">Hybrid LBP+GLCM (Sensors 2022)</td><td>Accuracy</td><td>~99&nbsp;%</td><td>B5 75,5&nbsp;% acc</td><td class="left">Partiel (texture explicite, jeu différent)</td>
+  </tr>
+  <tr>
+    <td class="left">FRAN dual-branch (2024)</td><td>Accuracy</td><td>97&nbsp;%+</td><td>B6 88,8&nbsp;% acc</td><td class="left">Non (attention + edge, protocole propre)</td>
+  </tr>
+  <tr>
+    <td class="left">HyperKvasir benchmark (Borgli 2020)</td><td>Macro-F1</td><td>~0,82 (DenseNet-161)</td><td>B2 0,585 / B4 0,577</td><td class="left">Partiel (23 classes, split image-level)</td>
+  </tr>
+  <tr>
+    <td class="left"><strong>Baseline interne</strong></td><td>Macro-F1 test</td><td>—</td><td><strong>B0 0,689 / B1 0,749</strong></td><td class="left">Oui (Kvasir v1, protocole documenté)</td>
+  </tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>7. Discussion</h2>
+
+<h3>7.1 Intérêt du SE-ResNet pour la couleur endoscopique</h3>
+<p>Les images endoscopiques présentent des variations importantes de luminosité, de teinte (sang rouge, bile jaune-verte, muqueuse rose) et de saturation. Les blocs SE recalibrent les canaux de feature maps selon le contexte global de l’image. <strong>Résultats RQ3</strong>&nbsp;: B4 (SE-ResNet ImageNet) atteint 0,577 macro-F1 test vs 0,585 pour B2 (ResNet ImageNet) — <em>pas de gain mesurable</em> du recalibrage SE dans notre protocole. B3 scratch (0,439) confirme l’importance du transfer learning. Le SE-ResNet reste pertinent pour l’analyse des confusions par classe (œsophagites, grades colite), mais n’améliore pas la métrique globale sous 15 époques sans HPO dédié.</p>
+
+<h3>7.2 Dual-stream texture pour les lésions muqueuses</h3>
+<p>Sur Kvasir v1, la confusion polype↔ulcère (20 erreurs B1 sur 75 polyps test) suggère que la couleur RGB seule est insuffisante pour discriminer les lésions muqueuses. La branche HSV/LBP capture explicitement les motifs texturels (LBP) et les composantes couleur (H, S) indépendamment de l’intensité globale. Cette approche s’aligne sur les travaux hybrides LBP/GLCM (Sensors 2022) et les architectures dual-stream Effimix/FRAN.</p>
+
+<h3>7.3 Limites MPS et reproductibilité matérielle</h3>
+<p>L’entraînement sur Apple MPS (AMD Radeon Pro 5300M) a montré une instabilité lors des campagnes Optuna longues (essais élagués à macro-F1 ≈ 0,25, checkpoints corrompus). Mitigation&nbsp;: réentraînement explicite post-HPO, repli <code>--device cpu</code> pour les campagnes HyperKvasir. Estimation compute&nbsp;: ~30–45 min/modèle/15 époques → ~6–8 h pour B2–B6.</p>
+
+<h3>7.4 Déséquilibre des classes HyperKvasir</h3>
+<p>HyperKvasir présente un fort déséquilibre (ex. <code>polyp</code> >> <code>impacted-stool</code>). L’usage de la macro-F1 comme métrique principale atténue le biais vers les classes majoritaires, mais le rappel des classes rares reste critique cliniquement. Extensions prévues&nbsp;: perte pondérée ou focal loss (phase ultérieure), macro-rappel groupé par catégorie clinique.</p>
+
+<div class="page-break"></div>
+
+<h2>8. Plan d’implémentation (6 phases)</h2>
+
+<table>
+  <tr><th>Phase</th><th>Intitulé</th><th class="left">Livrables</th><th>Statut</th></tr>
+  <tr><td><strong>0</strong></td><td>Documentation</td><td class="left">Revue HTML (ce document), <code>SCIENTIFIC_REVIEW.md</code>, PDF v1.1</td><td>Terminé</td></tr>
+  <tr><td><strong>1</strong></td><td>Infrastructure</td><td class="left">Registre modèles (<code>--arch</code>), script HyperKvasir 23 classes, dataloader dual-stream</td><td>Terminé</td></tr>
+  <tr><td><strong>2</strong></td><td>Modèles</td><td class="left">SE-ResNet-50 (B3/B4), dual-stream couleur-texture (B5/B6), fine-tune ImageNet (B2)</td><td>Terminé</td></tr>
+  <tr><td><strong>3</strong></td><td>Benchmarks</td><td class="left">Entraînement + évaluation B2–B6, export JSON, comparaison littérature</td><td>Terminé</td></tr>
+  <tr><td><strong>4</strong></td><td>Mise à jour documentation</td><td class="left">Injection résultats HyperKvasir dans HTML, <code>summary.md</code>, régénération PDF v1.1</td><td>Terminé</td></tr>
+  <tr><td><strong>5</strong></td><td>Extensions cliniques</td><td class="left">Splits patient-level, focal loss, HPO Optuna par architecture, Grad-CAM</td><td>Planifié</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>9. Risques et mitigations</h2>
+
+<p class="caption">Tableau 8 — Matrice des risques identifiés.</p>
+<table>
+  <tr><th>Risque</th><th class="left">Mitigation</th></tr>
+  <tr><td>Instabilité MPS (Optuna/HPO long)</td><td class="left">Entraînement <code>--device cpu</code> en fallback&nbsp;; validation checkpoints via <code>evaluate.py</code> avant rapport</td></tr>
+  <tr><td>Déséquilibre 23 classes</td><td class="left">Weighted CE ou focal loss (phase 5)&nbsp;; macro-F1 comme métrique principale</td></tr>
+  <tr><td>Dual-stream lent (LBP online)</td><td class="left">Précalcul cartes texture (<code>--precompute-texture</code>)&nbsp;; TextureColorNet léger</td></tr>
+  <tr><td>Comparaisons littérature biaisées</td><td class="left">Tableau «&nbsp;protocole équivalent&nbsp;?&nbsp;» (§6.3) avec splits, classes, pretrain, métrique</td></tr>
+  <tr><td>Pas de split patient HyperKvasir</td><td class="left">Documenter comme limitation&nbsp;; extension patient-level en phase 5</td></tr>
+</table>
+
+<h2>10. Conclusions et perspectives</h2>
+
+<h3>10.1 Conclusions</h3>
+<ul>
+  <li>Le pipeline ResNet-50 mono-flux est <strong>validé sur Kvasir v1</strong>&nbsp;: B0 atteint 70,3&nbsp;% test accuracy (macro-F1 0,689)&nbsp;; B1 Optuna atteint 76,0&nbsp;% (macro-F1 0,749, +6 points).</li>
+  <li>Le rappel polype (~48&nbsp;%) reste <strong>insuffisant cliniquement</strong>&nbsp;; les confusions polype↔ulcère motivent l’exploration SE-ResNet et dual-stream.</li>
+  <li>Sur HyperKvasir (23 classes), <strong>SE-ResNet-50 ImageNet (B4)</strong> atteint 0,577 macro-F1 test — proche de B2 (0,585) et B6 (0,586), sans avantage net du recalibrage canal.</li>
+  <li>Le transfer learning ImageNet améliore fortement chaque architecture (B4 vs B3&nbsp;: +0,138 F1&nbsp;; B2 vs scratch&nbsp;: comparable).</li>
+  <li>Cette revue v1.1 documente le plan comparatif complet et les résultats B2–B6 (RQ3–RQ6).</li>
+</ul>
+
+<h3>10.2 Perspectives prioritaires</h3>
+<table>
+  <tr><th>Priorité</th><th class="left">Direction</th></tr>
+  <tr><td>Élevée</td><td class="left">HPO Optuna dédié SE-ResNet (B4) et focal loss pour classes rares</td></tr>
+  <tr><td>Élevée</td><td class="left">Grad-CAM / visualisation des poids SE sur confusions chromatiques</td></tr>
+  <tr><td>Élevée</td><td class="left">Splits train/val/test au niveau patient</td></tr>
+  <tr><td>Élevée</td><td class="left">Perte focalisée / pondérée pour classes rares et rappel polype</td></tr>
+  <tr><td>Moyenne</td><td class="left">HPO Optuna par architecture (8 essais max)&nbsp;; repli CPU si MPS instable</td></tr>
+  <tr><td>Moyenne</td><td class="left">Grad-CAM, visualisation des cartes d’attention SE et branches texture</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h2>11. Reproductibilité</h2>
+
+<p><strong>Environnement</strong>&nbsp;: Python 3.11, PyTorch ≥2.11, torchvision ≥0.26, Optuna ≥4, scikit-learn ≥1.5, scikit-image ≥0.24 (gestion via Pixi).</p>
+
+<p><strong>Préparation des données</strong></p>
+<pre style="font-size:9pt;background:#f5f5f5;padding:8pt;border:0.5pt solid #ccc;overflow-x:auto;">
+pixi run prepare-kvasir -- --output data/kvasir
+pixi run prepare-hyperkvasir -- --output data/hyperkvasir
+</pre>
+
+<p><strong>Entraînement Kvasir v1 (B0/B1)</strong></p>
+<pre style="font-size:9pt;background:#f5f5f5;padding:8pt;border:0.5pt solid #ccc;overflow-x:auto;">
+pixi run train -- --data-dir data/kvasir --epochs 15 --output checkpoints/kvasir_baseline.pt
+pixi run tune -- --data-dir data/kvasir --n-trials 8 --epochs-per-trial 8
+pixi run train -- --data-dir data/kvasir --epochs 15 --output checkpoints/kvasir_optuna.pt \
+  --lr 3.997e-4 --weight-decay 3.94e-5 --batch-size 16 --label-smoothing 0.095
+</pre>
+
+<p><strong>Campagne HyperKvasir (B2–B6)</strong></p>
+<pre style="font-size:9pt;background:#f5f5f5;padding:8pt;border:0.5pt solid #ccc;overflow-x:auto;">
+bash scripts/run_hyperkvasir_benchmarks.sh
+# ou individuellement&nbsp;:
+pixi run train -- --data-dir data/hyperkvasir --arch resnet50 --pretrained --epochs 15 \
+  --output checkpoints/hyperkvasir/b2_resnet50_imagenet.pt
+pixi run train -- --data-dir data/hyperkvasir --arch seresnet50 --epochs 15 \
+  --output checkpoints/hyperkvasir/b3_seresnet50_scratch.pt
+pixi run train -- --data-dir data/hyperkvasir --arch dualstream_resnet_color_texture --epochs 15 \
+  --output checkpoints/hyperkvasir/b5_dualstream_scratch.pt
+</pre>
+
+<p><strong>Évaluation</strong></p>
+<pre style="font-size:9pt;background:#f5f5f5;padding:8pt;border:0.5pt solid #ccc;overflow-x:auto;">
+pixi run evaluate -- --checkpoint checkpoints/kvasir_baseline.pt --data-dir data/kvasir --split test
+pixi run evaluate -- --checkpoint checkpoints/hyperkvasir/b2_resnet50_imagenet.pt \
+  --data-dir data/hyperkvasir --split test \
+  --output benchmarks/ml/results/hyperkvasir_b2_test.json
+</pre>
+
+<p><strong>Artefacts principaux</strong>&nbsp;: <code>models/</code>, <code>script_ResNet.py</code>, <code>training.py</code>, <code>evaluate.py</code>, <code>benchmarks/ml/protocol.md</code>, <code>benchmarks/ml/results/summary.md</code>.</p>
+
+<div class="page-break"></div>
+
+<h2>12. Références bibliographiques</h2>
+
+<p class="ref">[1] Hu J., Shen L., Sun G. (2018). Squeeze-and-Excitation Networks. <em>CVPR</em>.</p>
+<p class="ref">[2] He K. et al. (2016). Deep residual learning for image recognition. <em>CVPR</em>.</p>
+<p class="ref">[3] Tajbakhsh N. et al. (2016). Automated polyp detection in colonoscopy videos. <em>IEEE TMI</em>, 35(2), 630–644.</p>
+<p class="ref">[4] Pogorelov K. et al. (2017). Kvasir: A multi-class image dataset for GI disease detection. <em>ACM MMSys</em>.</p>
+<p class="ref">[5] Borgli H. et al. (2020). HyperKvasir, a comprehensive multi-class image and video dataset for gastrointestinal endoscopy. <em>Scientific Data</em>, 7, 283.</p>
+<p class="ref">[6] Sokolova M., Lapalme G. (2009). A systematic analysis of performance measures for classification tasks. <em>IP&amp;M</em>, 45(4), 427–437.</p>
+<p class="ref">[7] SE-ResNet for Kvasir v2 (2024). IIETA — classification endoscopique multi-classes.</p>
+<p class="ref">[8] Effimix / EfficientNet fusion for HyperKvasir (2022). <em>MDPI</em>.</p>
+<p class="ref">[9] Hybrid LBP+GLCM+RGB for GI disease classification (2022). <em>Sensors</em>.</p>
+<p class="ref">[10] FRAN dual-branch attention fusion (2024). Classification Kvasir / HyperKvasir.</p>
+<p class="ref">[11] Akiba T. et al. (2019). Optuna: A hyperparameter optimization framework. <em>KDD</em>.</p>
+<p class="ref">[12] Roberts M. et al. (2017). Common pitfalls in machine learning for medical imaging. <em>Nature Protocols</em>.</p>
+<p class="ref">[13] Byrne M. F. et al. (2019). Real-time automatic measurement of adenoma detection rate. <em>Gastroenterology</em>.</p>
+
+<div class="page-break"></div>
+
+<h2>13. Annexes</h2>
+
+<h3>Annexe A — Liste complète des 23 classes HyperKvasir</h3>
+<ol style="font-size:9.5pt;columns:2;">
+  <li><code>barretts</code></li>
+  <li><code>bbps-0-1</code></li>
+  <li><code>bbps-2-3</code></li>
+  <li><code>dyed-lifted-polyps</code></li>
+  <li><code>dyed-resection-margins</code></li>
+  <li><code>hemorrhoids</code></li>
+  <li><code>ileum</code></li>
+  <li><code>impacted-stool</code></li>
+  <li><code>normal-cecum</code></li>
+  <li><code>normal-pylorus</code></li>
+  <li><code>normal-z-line</code></li>
+  <li><code>oesophagitis-a</code></li>
+  <li><code>oesophagitis-b-d</code></li>
+  <li><code>polyp</code></li>
+  <li><code>retroflex-rectum</code></li>
+  <li><code>retroflex-stomach</code></li>
+  <li><code>short-segment-barretts</code></li>
+  <li><code>ulcerative-colitis-0-1</code></li>
+  <li><code>ulcerative-colitis-1-2</code></li>
+  <li><code>ulcerative-colitis-2-3</code></li>
+  <li><code>ulcerative-colitis-grade-1</code></li>
+  <li><code>ulcerative-colitis-grade-2</code></li>
+  <li><code>ulcerative-colitis-grade-3</code></li>
+</ol>
+
+<h3>Annexe B — Hyperparamètres Optuna (B1, essai 1 — Kvasir v1)</h3>
+<table>
+  <tr><th>Hyperparamètre</th><th>Valeur optimale</th></tr>
+  <tr><td>Taux d’apprentissage</td><td>3,997 × 10<sup>−4</sup></td></tr>
+  <tr><td>Weight decay</td><td>3,94 × 10<sup>−5</sup></td></tr>
+  <tr><td>Taille de batch</td><td>16</td></tr>
+  <tr><td>Optimiseur</td><td>AdamW</td></tr>
+  <tr><td>Planificateur</td><td>aucun</td></tr>
+  <tr><td>Lissage d’étiquettes</td><td>0,095</td></tr>
+  <tr><td>Taille d’image</td><td>224 px</td></tr>
+</table>
+
+<p><strong>Espace de recherche Optuna</strong>&nbsp;: lr (log [10<sup>−5</sup>, 10<sup>−2</sup]), weight decay (log [10<sup>−6</sup>, 10<sup>−2</sup]), batch {8, 16, 32}, optimiseur {AdamW, SGD}, planificateur {none, cosine, step}, label smoothing [0, 0,2], img_size {224, 256}. Élagueur MedianPruner (3 essais warmup, 2 époques).</p>
+
+<h3>Annexe C — Essais Optuna (phase HPO, Kvasir v1)</h3>
+<table>
+  <tr><th>Essai</th><th>Macro-F1</th><th>Optimiseur</th><th>Planificateur</th><th>Taille</th><th>Statut</th></tr>
+  <tr><td>0</td><td>0,585</td><td>SGD</td><td>cosine</td><td>224</td><td>complet</td></tr>
+  <tr><td><strong>1</strong></td><td><strong>0,724</strong></td><td><strong>AdamW</strong></td><td><strong>none</strong></td><td><strong>224</strong></td><td><strong>meilleur</strong></td></tr>
+  <tr><td>2</td><td>0,250</td><td>AdamW</td><td>step</td><td>256</td><td>complet</td></tr>
+  <tr><td>3–7</td><td>≤0,250</td><td>mixte</td><td>mixte</td><td>mixte</td><td>élagué</td></tr>
+</table>
+
+<h3>Annexe D — Échantillons visuels</h3>
+<p>Échantillons Kvasir v1 réels&nbsp;: <code>docs/assets/pdf_samples/</code> (cecum.jpg, pylorus.jpg, polyp.jpg, ulcer.jpg). Échantillons HyperKvasir par groupe clinique&nbsp;: à ajouter post-téléchargement (repère, polype, colite, œsophagite).</p>
+
+<div class="footer">
+  <p><strong>Auteur&nbsp;:</strong> Hamza AASSIF &nbsp;|&nbsp; <strong>Dépôt&nbsp;:</strong> endoscopy-resnet</p>
+  <p><strong>Version&nbsp;:</strong> revue comparative v1.0 (juin 2026) — plan complet + résultats Kvasir v1</p>
+  <p><strong>Déclaration&nbsp;:</strong> prototype de recherche — non validé pour usage clinique.</p>
+  <p><em>Document généré à partir du plan de comparaison SE-ResNet / dual-stream et de <code>benchmarks/ml/results/summary.md</code>.</em></p>
+  <p><em>Archive Kvasir v1&nbsp;: <code>docs/synthese_benchmark_fr.html</code> (juin 2026).</em></p>
+</div>
+
+</body>
+</html>

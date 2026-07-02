@@ -1,0 +1,53 @@
+# Trigger long-running benchmarks on your Mac via a webhook/SSH — NOT on GitHub runners.
+# From your phone: open GitHub → Actions → this workflow → Run workflow.
+# Requires a self-hosted runner label `macos-mps` on your Mac (see docs/setup-ios.md).
+
+name: Benchmark (self-hosted Mac)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Campaign mode
+        required: true
+        default: smoke
+        type: choice
+        options:
+          - smoke
+          - resume
+          - force
+
+jobs:
+  jepa-campaign:
+    runs-on: [self-hosted, macos-mps]
+    timeout-minutes: 2880
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pixi
+        run: |
+          if ! command -v pixi >/dev/null; then
+            curl -fsSL https://pixi.sh/install.sh | bash
+            echo "$HOME/.pixi/bin" >> "$GITHUB_PATH"
+          fi
+
+      - name: Sync environment
+        run: pixi install
+
+      - name: Run campaign
+        run: |
+          case "${{ inputs.mode }}" in
+            smoke) bash scripts/run_article_campaign_loop.sh --smoke ;;
+            force) bash scripts/run_full_jepa_benchmarks.sh --force ;;
+            resume) bash scripts/run_full_jepa_benchmarks.sh ;;
+          esac
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmark-results-${{ github.run_id }}
+          path: |
+            benchmarks/ml/results/*.json
+            benchmarks/ml/results/jepa_summary.md
+          retention-days: 30

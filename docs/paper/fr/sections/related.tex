@@ -1,0 +1,21 @@
+\section{Travaux connexes}
+\label{sec:related}
+
+\textbf{Classification en endoscopie.}
+Kvasir~\cite{pogorelov2017kvasir} et HyperKvasir~\cite{borgli2020hyperkvasir} sont des références pour la classification d'images digestives.
+Un travail antérieur dans notre dépôt~\cite{assif2026endoscopy} compare ResNet-50, SE-ResNet-50 et fusion couleur--texture sur HyperKvasir (23 classes), avec une macro-F1 test $\approx$0,58--0,59 (B2--B6).
+Nous ciblons une taxonomie \emph{à trois classes} alignée sur la pratique (repère, muqueuse, polype) plutôt que sur 23 labels académiques.
+
+\textbf{Attention canal.}
+SE-Net~\cite{hu2018senet} recalibre les canaux via une moyenne globale (GAP) puis excitation.
+Sous masquage JEPA, les zéros de padding biaisent la GAP ; nous proposons un pooling pondéré par le masque (section~\ref{sec:maskse}).
+
+\textbf{JEPA et auto-supervision.}
+I-JEPA~\cite{assran2023ijepa} repose sur des Vision Transformers ; nous employons un \emph{CNN-JEPA} avec prédicteur convolutif sur cartes de features, plus adapté au déploiement léger qu'un foundation model ViT.
+Des travaux proches incluent BYOL~\cite{grill2020byol}.
+Le pré-entraînement JEPA coloscopique sur CNN reste, à notre connaissance, non couvert.
+
+\textbf{Détection de polypes.}
+Les systèmes CAD~\cite{tajbakhsh2016cad} mettent l'accent sur la \emph{sensibilité} aux polypes.
+Nous rapportons le rappel polype en plus de la macro-F1.
+La classe \emph{polype} est unique (Kvasir + HyperKvasir \texttt{polyps} et \texttt{dyed-lifted-polyps}) ; le typage histologique est reporté aux travaux futurs.

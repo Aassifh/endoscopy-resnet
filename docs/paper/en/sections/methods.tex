@@ -1,0 +1,63 @@
+\section{Methods}
+\label{sec:methods}
+
+\subsection{CNN-JEPA pretraining}
+\label{sec:jepa}
+
+Given an unlabeled frame $x \in \mathbb{R}^{3\times H \times W}$, a binary block mask $m \in \{0,1\}^{1\times H \times W}$ defines visible context $x \odot m$.
+A \emph{context encoder} $f_\theta$ (\backbone{}) produces a feature map $h = f_\theta(x \odot m, m)$.
+A lightweight convolutional \emph{predictor} $g_\phi$ maps $h$ to a latent grid $\hat{z} = g_\phi(h)$.
+A \emph{target encoder} $f_{\bar{\theta}}$ (EMA copy of $f_\theta$, momentum $\tau=0.996$) encodes the full image: $z = f_{\bar{\theta}}(x)$.
+The training loss is normalized mean squared error:
+\begin{equation}
+\mathcal{L}_{\mathrm{JEPA}} = \left\| \mathrm{norm}(\hat{z}) - \mathrm{norm}(z) \right\|_2^2 .
+\end{equation}
+Block masks expose 25--45\% of pixels (multi-scale rectangles).
+Pretraining uses AdamW, cosine schedule, early stopping on validation latent loss (patience 10, max 80 epochs).
+
+\subsection{Mask-aware squeeze-and-excitation}
+\label{sec:maskse}
+
+Standard SE blocks apply GAP over all spatial locations.
+When inputs are masked, zero-padded regions skew channel statistics.
+Our \textbf{mask-aware SE} computes per-channel pooling over visible positions only:
+\begin{equation}
+\mathrm{GAP}_c(x,m) = \frac{\sum_{i,j} x_{c,i,j}\, m_{i,j}}{\sum_{i,j} m_{i,j} + \epsilon}.
+\end{equation}
+Channel attention weights are then applied as in SE-Net~\cite{hu2018senet}.
+Ablation C3 uses standard SE under the same JEPA pipeline; C4 enables mask-aware SE.
+
+\subsection{Data and class taxonomy}
+\label{sec:data}
+
+We merge Kvasir v1 and HyperKvasir labeled images into three classes:
+\begin{itemize}
+  \item \textbf{Landmark:} cecum, pylorus, z-line, ileum, retroflexions.
+  \item \textbf{Normal mucosa:} BBPS scores, hemorrhoids, impacted stool (non-lesion frames).
+  \item \textbf{Polyp:} Kvasir \texttt{polyp}, HyperKvasir \texttt{polyps} and \texttt{dyed-lifted-polyps}.
+\end{itemize}
+Pathology classes (Barrett's, ulcerative colitis grades, esophagitis) are excluded.
+HyperKvasir provides \emph{no} histological polyp subtypes; all polyp appearances are merged into one class.
+Total: \numsamples{} images, center \texttt{simula}.
+
+\subsection{Experimental protocol (C0--C10)}
+\label{sec:protocol}
+
+\begin{itemize}
+  \item \textbf{C0:} SE-ResNet scratch.
+  \item \textbf{C1:} SE-ResNet ImageNet pretrained.
+  \item \textbf{C2:} ResNet-50 + CNN-JEPA pretrain.
+  \item \textbf{C3/C4:} SE + CNN-JEPA (standard vs mask-aware SE).
+  \item \textbf{C5:} frozen endoscopy teacher (same JEPA checkpoint).
+  \item \textbf{C7--C9:} C4 with 10/25/50\% training labels.
+  \item \textbf{C10:} LOO aggregate for C4 across centers (one fold available).
+\end{itemize}
+Fine-tuning adds a linear three-class head; selection by validation macro-F1 (patience 5, max 30 epochs).
+
+\subsection{Metrics}
+Primary: \textbf{macro-F1} on validation/test.
+Clinical secondary: \textbf{polyp recall} (true polyp rate among predicted polyps row in confusion matrix).
+
+\subsection{Implementation}
+PyTorch on Apple MPS; open repository \texttt{endoscopy-resnet}.
+Campaign orchestration: \texttt{run\_full\_jepa\_benchmarks.sh}; early-stop logs per run.

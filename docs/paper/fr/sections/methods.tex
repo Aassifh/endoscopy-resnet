@@ -1,0 +1,51 @@
+\section{Méthodes}
+\label{sec:methods}
+
+\subsection{Pré-entraînement CNN-JEPA}
+\label{sec:jepa}
+
+Soit une frame non annotée $x$ et un masque binaire par blocs $m$.
+L'\emph{encodeur contexte} $f_\theta$ (\backbone{}) produit une carte de features $h = f_\theta(x \odot m, m)$.
+Un \emph{prédicteur} convolutif $g_\phi$ prédit $\hat{z} = g_\phi(h)$.
+Un \emph{encodeur cible} $f_{\bar{\theta}}$ (copie EMA, $\tau=0,996$) encode l'image complète : $z = f_{\bar{\theta}}(x)$.
+La perte est l'erreur quadratique moyenne sur représentations normalisées :
+\begin{equation}
+\mathcal{L}_{\mathrm{JEPA}} = \left\| \mathrm{norm}(\hat{z}) - \mathrm{norm}(z) \right\|_2^2 .
+\end{equation}
+Les masques laissent visibles 25--45\,\% des pixels.
+Arrêt anticipé sur la perte latente de validation (patience 10, max 80 époques).
+
+\subsection{SE sensible au masque}
+\label{sec:maskse}
+
+Les blocs SE classiques utilisent une GAP sur toute l'image.
+Notre \textbf{SE sensible au masque} ne moyenne que les positions visibles :
+\begin{equation}
+\mathrm{GAP}_c(x,m) = \frac{\sum_{i,j} x_{c,i,j}\, m_{i,j}}{\sum_{i,j} m_{i,j} + \epsilon}.
+\end{equation}
+L'ablation C3 garde un SE standard ; C4 active le SE sensible au masque.
+
+\subsection{Données et classes}
+\label{sec:data}
+
+Fusion de Kvasir v1 et HyperKvasir en trois classes :
+\begin{itemize}
+  \item \textbf{Repère anatomique} : cæcum, pylore, z-ligne, iléon, rétroflexions.
+  \item \textbf{Muqueuse normale} : scores BBPS, hémorroïdes, selles impactées.
+  \item \textbf{Polype} : Kvasir \texttt{polyp}, HyperKvasir \texttt{polyps} et \texttt{dyed-lifted-polyps}.
+\end{itemize}
+Pathologies exclues (Barrett, colite ulcéreuse, {\oe}sophagite).
+HyperKvasir ne fournit \emph{pas} de sous-types histologiques de polypes.
+Total : \numsamples{} images, centre \texttt{simula}.
+
+\subsection{Protocole C0--C10}
+\label{sec:protocol}
+
+C0 scratch ; C1 ImageNet ; C2 ResNet + JEPA ; C3/C4 SE + JEPA (SE standard vs sensible au masque) ; C5 enseignant figé ; C7--C9 fractions de labels ; C10 agrégat LOO pour C4.
+Sélection du checkpoint par macro-F1 validation (patience 5, max 30 époques).
+
+\subsection{Métriques}
+Macro-F1 principale ; \textbf{rappel polype} secondaire (dimension clinique).
+
+\subsection{Implémentation}
+PyTorch sur Apple MPS ; dépôt \texttt{endoscopy-resnet} ; campagne \texttt{run\_full\_jepa\_benchmarks.sh}.

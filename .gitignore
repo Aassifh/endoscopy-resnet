@@ -1,0 +1,38 @@
+.pixi/
+*.pth
+checkpoints/
+optuna_endoscopy.db
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Large datasets (keep locally; download via scripts/)
+data/raw/
+data/kvasir/
+data/hyperkvasir/
+data/colonoscopy_3class/
+data/jepa_frames/
+data/private/
+
+# LaTeX build artifacts (PDFs can be regenerated)
+docs/paper/en/*.aux
+docs/paper/en/*.log
+docs/paper/en/*.bbl
+docs/paper/en/*.blg
+docs/paper/en/*.out
+docs/paper/fr/*.aux
+docs/paper/fr/*.log
+docs/paper/fr/*.bbl
+docs/paper/fr/*.blg
+docs/paper/fr/*.out
+
+# Keep paper PDFs optional — uncomment to ignore:
+# docs/paper/en/main.pdf
+# docs/paper/fr/main.pdf
+
+# Cursor local state (optional)
+.cursor/plans/
+.cursor/projects/
+
+# GitHub Actions runner (if installed in repo)
+actions-runner/

@@ -1,0 +1,10 @@
+\begin{abstract}
+L'analyse assistée par ordinateur des images de coloscopie peut aider à repérer les polypes et à contrôler la qualité de l'examen, mais les données annotées restent rares et les modèles généralisent mal d'un centre hospitalier à l'autre.
+Nous proposons une architecture prédictive jointe \emph{convolutive} (\method{}, \emph{Joint-Embedding Predictive Architecture}) appliquée à un \backbone{} avec blocs SE \emph{sensibles au masque} : l'attention canal ne porte que sur les pixels \emph{visibles} sous masquage par blocs.
+Après un pré-entraînement non supervisé sur des frames non annotées, nous affinons un modèle sur trois classes cliniques : \emph{repère anatomique}, \emph{muqueuse normale} et \emph{polype} (classe unique, sans sous-types histologiques).
+Nous rapportons une matrice reproductible C0--C10 avec arrêt anticipé strict sur les données publiques Simula (Kvasir + HyperKvasir, \numsamples{} images).
+Sur le fold public disponible, le transfert ImageNet (macro-F1 0,989 ; rappel polype 0,971) surpasse l'affinage CNN-JEPA domaine (C4 : macro-F1 0,910 ; rappel polype 0,829).
+CNN-JEPA reste compétitif face à l'entraînement from scratch et montre une tendance d'efficacité en labels (macro-F1 0,825--0,907 pour 10--50\,\%), sans dépasser ImageNet sur les seules données publiques.
+Code et protocoles publiés pour une évaluation multi-centres (leave-one-center-out).
+\textbf{Mots-clés :} coloscopie, détection de polype, apprentissage auto-supervisé, JEPA, SE-ResNet.
+\end{abstract}

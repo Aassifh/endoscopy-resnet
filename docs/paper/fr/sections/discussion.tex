@@ -1,0 +1,15 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\textbf{Apport méthodologique vs empirique.}
+Le pipeline (CNN-JEPA + SE sensible au masque + protocole C0--C10) est réutilisable ; les chiffres actuels sur Simula ne démontrent pas la supériorité sur ImageNet.
+
+\textbf{Pourquoi ImageNet domine.} Les images publiques peuvent rester proches de statistiques naturelles favorisant ImageNet ; avec un seul centre, le LOO strict se dégrade en split poolé.
+
+\textbf{Implications cliniques.} Rappel polype 83\,\% (C4) vs 97\,\% (C1) --- insuffisant pour un déploiement de dépistage sans amélioration (perte focalisée, pré-entraînement vidéo réel, multi-centres).
+
+\textbf{Typage des polypes.} Classe \emph{polype} unique ; le typage endoscopique ou histologique (adénome, hyperplasique, classification de Paris) nécessitera d'autres jeux de données --- perspective de travail futur.
+
+\textbf{Comparaison 23 classes.} Les benchmarks HyperKvasir B2--B6 ($\approx$0,58 macro-F1) concernent une tâche plus fine ; notre regroupement en 3 classes vise d'autres décisions cliniques.
+
+\textbf{Reproductibilité.} Tableaux générés automatiquement depuis les JSON de benchmark.

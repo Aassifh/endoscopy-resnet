@@ -1,0 +1,31 @@
+[workspace]
+authors = ["Hamza AASSIF <hamza@dynvibe.com>"]
+channels = ["conda-forge"]
+name = "endoscopy-resnet"
+platforms = ["osx-64"]
+version = "0.2.0"
+description = "ResNet training, Optuna HPO, and inference for endoscopy image classification"
+
+[dependencies]
+python = "3.11.*"
+pytorch = ">=2.11.0,<3"
+torchvision = ">=0.26.0,<0.27"
+pillow = ">=12.2.0,<13"
+tqdm = ">=4.68.2,<5"
+optuna = ">=4.0.0,<5"
+scikit-learn = ">=1.5.0,<2"
+scikit-image = ">=0.24.0,<1"
+
+[tasks]
+train = "python script_ResNet.py"
+infer = "python utiliser_model.py"
+evaluate = "python evaluate.py"
+tune = "python optuna_search.py"
+prepare-kvasir = "python scripts/download_and_prepare_kvasir.py"
+prepare-hyperkvasir = "python scripts/download_and_prepare_hyperkvasir.py"
+prepare-colonoscopy-3class = "python scripts/prepare_colonoscopy_3class.py"
+extract-video-frames = "python scripts/extract_video_frames.py"
+pretrain-jepa = "python scripts/pretrain_cnn_jepa.py"
+run-jepa-campaign = "bash scripts/run_article_campaign_loop.sh"
+run-loo-benchmark = "bash scripts/run_loo_benchmark.sh"
+run-full-jepa-benchmarks = "bash scripts/run_full_jepa_benchmarks.sh"

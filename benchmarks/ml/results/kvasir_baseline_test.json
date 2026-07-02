@@ -1,0 +1,41 @@
+{
+  "checkpoint": "checkpoints/kvasir_baseline.pt",
+  "split": "test",
+  "class_names": [
+    "cecum",
+    "polyp",
+    "pylorus",
+    "ulcer"
+  ],
+  "loss": 0.7835000371932983,
+  "accuracy": 0.70333331823349,
+  "macro_f1": 0.6887059006013936,
+  "weighted_f1": 0.6887059006013936,
+  "confusion_matrix": [
+    [
+      64,
+      10,
+      0,
+      1
+    ],
+    [
+      9,
+      31,
+      13,
+      22
+    ],
+    [
+      0,
+      0,
+      72,
+      3
+    ],
+    [
+      11,
+      13,
+      7,
+      44
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n       cecum       0.76      0.85      0.81        75\n       polyp       0.57      0.41      0.48        75\n     pylorus       0.78      0.96      0.86        75\n       ulcer       0.63      0.59      0.61        75\n\n    accuracy                           0.70       300\n   macro avg       0.69      0.70      0.69       300\nweighted avg       0.69      0.70      0.69       300\n"
+}

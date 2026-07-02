@@ -1,0 +1,41 @@
+{
+  "checkpoint": "checkpoints/kvasir_optuna.pt",
+  "split": "val",
+  "class_names": [
+    "cecum",
+    "polyp",
+    "pylorus",
+    "ulcer"
+  ],
+  "loss": 0.6711682907740275,
+  "accuracy": 0.7933333516120911,
+  "macro_f1": 0.7886846768494318,
+  "weighted_f1": 0.7886846768494317,
+  "confusion_matrix": [
+    [
+      66,
+      8,
+      0,
+      1
+    ],
+    [
+      12,
+      44,
+      6,
+      13
+    ],
+    [
+      0,
+      3,
+      71,
+      1
+    ],
+    [
+      9,
+      7,
+      2,
+      57
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n       cecum       0.76      0.88      0.81        75\n       polyp       0.71      0.59      0.64        75\n     pylorus       0.90      0.95      0.92        75\n       ulcer       0.79      0.76      0.78        75\n\n    accuracy                           0.79       300\n   macro avg       0.79      0.79      0.79       300\nweighted avg       0.79      0.79      0.79       300\n"
+}

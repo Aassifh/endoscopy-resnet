@@ -1,0 +1,33 @@
+{
+  "checkpoint": "checkpoints/jepa/C0_fold_simula.pt",
+  "arch": "seresnet50",
+  "pretrained": false,
+  "split": "test",
+  "class_names": [
+    "landmark",
+    "normal_mucosa",
+    "polyp"
+  ],
+  "loss": 0.2818539285381108,
+  "accuracy": 0.9050942063331604,
+  "macro_f1": 0.8990600352815853,
+  "weighted_f1": 0.9048093036661143,
+  "confusion_matrix": [
+    [
+      694,
+      32,
+      39
+    ],
+    [
+      2,
+      286,
+      1
+    ],
+    [
+      42,
+      20,
+      317
+    ]
+  ],
+  "classification_report": "               precision    recall  f1-score   support\n\n     landmark       0.94      0.91      0.92       765\nnormal_mucosa       0.85      0.99      0.91       289\n        polyp       0.89      0.84      0.86       379\n\n     accuracy                           0.91      1433\n    macro avg       0.89      0.91      0.90      1433\n weighted avg       0.91      0.91      0.90      1433\n"
+}

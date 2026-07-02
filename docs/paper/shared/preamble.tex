@@ -1,0 +1,32 @@
+% Shared arXiv-style preamble
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% French typography (FR main adds babel)
+\usepackage{textcomp}
+
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\bibliographystyle{plainnat}
+\setcitestyle{numbers,square}
+
+\input{../shared/macros.tex}
+
+\newcommand{\enbrief}[1]{\begin{quote}\small\textbf{In brief.} #1\end{quote}}
+\newcommand{\frbrief}[1]{\begin{quote}\small\textbf{En bref.} #1\end{quote}}

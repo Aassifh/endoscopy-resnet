@@ -1,0 +1,16 @@
+\section{Experiments}
+\label{sec:experiments}
+
+\textbf{Hardware.} Apple MPS (AMD Radeon Pro 5300M); full campaign $\approx$24.5\,h.
+
+\textbf{Pretraining.} Up to 4{,}000 frames (proxy: labeled train images when unlabeled video unavailable); shared checkpoints for C2--C5; early stop at epoch 20 (patience on validation latent loss).
+
+\textbf{Fine-tuning.} Batch size 16, AdamW lr $10^{-4}$ (ImageNet) or $10^{-3}$ (scratch), image size 224.
+Test split: 1{,}433 frames (15\% per class, seed 42).
+
+\textbf{Hypotheses (pre-registered).}
+H1: C4 beats C1 under limited labels (LOO macro-F1).
+H2: C4 beats C3 (mask-aware SE).
+H3: C4 $\geq$ C5 at 25\% labels.
+
+\textbf{Note on LOO.} Only one public center (\texttt{simula}) is available; when the held-out fold has no training centers, evaluation uses the pooled \texttt{all} split---LOO multi-center validation awaits private centers under \texttt{data/private/}.

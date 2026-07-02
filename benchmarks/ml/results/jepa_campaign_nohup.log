@@ -1,0 +1,10 @@
+=== JEPA campaign started 2026-06-25T20:32:32Z ===
+=== JEPA campaign complete 2026-06-25T20:32:32Z ===
+
+--- JEPA benchmark results ---
+=== JEPA campaign started 2026-06-25T20:32:42Z ===
+--- tick 20:32:42 pending=10 ---
+=== Running pretrain_c4_shared ===
+No JEPA frames; using labeled train images as proxy for smoke/pretrain.
+✨ [1mPixi task ([0m[32m[1mpretrain-jepa[0m[1m): [0m[34m[1mpython scripts/pretrain_cnn_jepa.py[0m [34m--frames-dir data/colonoscopy_3class/all/train --backbone seresnet50 --mask-aware-se --output checkpoints/jepa/c4_mask_aware_shared.pt --max-epochs 80 --patience 10 --max-samples 0[0m[33m[0m
+pretrain:   0%|          | 0/398 [00:00<?, ?it/s]

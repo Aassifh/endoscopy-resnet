@@ -1,0 +1,18 @@
+\section{Introduction}
+\label{sec:intro}
+
+Colonoscopy is the gold standard for colorectal cancer screening.
+Computer-aided detection (CAD) systems analyze individual frames to flag suspected polyps and to confirm anatomical landmarks (cecum, ileum) required for quality metrics.
+Deep convolutional networks are attractive for near real-time deployment, yet they require large labeled datasets and often overfit a single hospital's appearance.
+
+Self-supervised learning can reduce annotation cost by pretraining on unlabeled video frames.
+Joint-Embedding Predictive Architectures (JEPA)~\cite{lecun2022path,assran2023ijepa} learn by predicting latent representations of masked views instead of reconstructing pixels.
+Medical JEPA variants exist for ultrasound and MRI, but not for colonoscopy with lightweight CNN backbones suitable for clinical deployment.
+
+\enbrief{We provide an open, reproducible pipeline: unsupervised CNN-JEPA pretraining on colonoscopy frames, mask-aware SE blocks compatible with JEPA masking, and a three-class fine-tuning benchmark (landmark / normal mucosa / polyp) with label-efficiency and leave-one-center-out protocols.
+We do \emph{not} claim state-of-the-art accuracy over ImageNet on public Simula data; we report results honestly and release code.}
+
+\textbf{Contributions.}
+(1)~\textbf{Method:} a convolutional JEPA (\method{}) on \backbone{} for unlabeled endoscopy frames.
+(2)~\textbf{Technique:} mask-aware SE blocks using mask-weighted global average pooling under spatial masking.
+(3)~\textbf{Evaluation:} reproducible C0--C10 benchmark on three clinical classes with early stopping, label fractions (10/25/50\%), and LOO framework (currently one public center).

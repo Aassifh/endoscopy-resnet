@@ -1,0 +1,1 @@
+Add a dark mode toggle to the settings page. Users should be able to switch between light and dark themes, and the preference should persist across sessions.

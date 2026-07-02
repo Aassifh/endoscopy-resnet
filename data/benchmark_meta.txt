@@ -1,0 +1,6 @@
+source=synthetic_kvasir_proxy
+seed=42
+train_per_class=56
+val_per_class=12
+test_per_class=12
+classes=cecum,pylorus,polyp,ulcer

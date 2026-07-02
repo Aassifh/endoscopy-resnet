@@ -1,0 +1,20 @@
+\section{Résultats}
+\label{sec:results}
+
+\input{../shared/figures/pipeline.tex}
+\input{../shared/tables/results.tex}
+\input{../shared/figures/label_curve.tex}
+\input{../shared/figures/confusion_c4.tex}
+
+Le tableau~\ref{tab:main} résume la comparaison principale sur le split test Simula.
+ImageNet (C1) obtient la meilleure macro-F1 (0,989) et le meilleur rappel polype (0,971).
+C4 (CNN-JEPA + SE sensible au masque) atteint macro-F1 0,910 et rappel polype 0,829.
+Le scratch (C0) est légèrement inférieur (macro-F1 0,899).
+
+\textbf{Ablations.} C3, C4 et C5 sont identiques (macro-F1 0,910) sur ce fold ; le gain du SE sensible au masque n'est pas mesurable ici.
+
+\textbf{Efficacité en labels.} La macro-F1 de C4 progresse de 0,825 (10\,\%) à 0,907 (50\,\%) et 0,910 (100\,\%), mais reste sous C1.
+
+\textbf{Confusions.} Pour C4, les erreurs polype concernent surtout les repères (12,4\,\%) et la muqueuse normale (4,7\,\%) --- figure~\ref{fig:confusion}.
+
+\textbf{LOO.} Macro-F1 moyenne C10 pour C4 : 0,910 ($n=1$ fold).

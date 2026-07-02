@@ -1,0 +1,33 @@
+{
+  "cecum": {
+    "path": "data/kvasir/test/cecum/cecum_test_0000.jpg",
+    "pred": "cecum",
+    "ok": true,
+    "dest": "docs/assets/pdf_samples/cecum.jpg"
+  },
+  "polyp": {
+    "path": "data/kvasir/test/polyp/polyp_test_0000.jpg",
+    "pred": "polyp",
+    "ok": true,
+    "dest": "docs/assets/pdf_samples/polyp.jpg"
+  },
+  "pylorus": {
+    "path": "data/kvasir/test/pylorus/pylorus_test_0000.jpg",
+    "pred": "pylorus",
+    "ok": true,
+    "dest": "docs/assets/pdf_samples/pylorus.jpg"
+  },
+  "ulcer": {
+    "path": "data/kvasir/test/ulcer/ulcer_test_0000.jpg",
+    "pred": "ulcer",
+    "ok": true,
+    "dest": "docs/assets/pdf_samples/ulcer.jpg"
+  },
+  "polyp_error": {
+    "path": "data/kvasir/test/polyp/polyp_test_0003.jpg",
+    "pred": "ulcer",
+    "ok": false,
+    "true": "polyp",
+    "dest": "docs/assets/pdf_samples/polyp_misclassified.jpg"
+  }
+}

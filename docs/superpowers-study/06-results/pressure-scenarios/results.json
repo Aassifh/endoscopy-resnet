@@ -1,0 +1,806 @@
+[
+  {
+    "skill": "test-driven-development",
+    "pressure": "TIME",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=321"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "TIME",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=321"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "TIME",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=321"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "TIME",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=321"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "TIME",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=321"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "TIME",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=321"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SUNK",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=320"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SUNK",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=320"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SUNK",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=320"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SUNK",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=320"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SUNK",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=320"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SUNK",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=320"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SCOPE",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=306"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SCOPE",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=306"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SCOPE",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=306"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SCOPE",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=306"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SCOPE",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=306"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "SCOPE",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=306"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "COMBINED",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait",
+      "Already coded it"
+    ],
+    "notes": "prompt_len=319"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "COMBINED",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait",
+      "Already coded it"
+    ],
+    "notes": "prompt_len=319"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "COMBINED",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait",
+      "Already coded it"
+    ],
+    "notes": "prompt_len=319"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "COMBINED",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait"
+    ],
+    "notes": "prompt_len=319"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "COMBINED",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait"
+    ],
+    "notes": "prompt_len=319"
+  },
+  {
+    "skill": "test-driven-development",
+    "pressure": "COMBINED",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait"
+    ],
+    "notes": "prompt_len=319"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "TIME",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=210"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "TIME",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=210"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "TIME",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=210"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "TIME",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=210"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "TIME",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=210"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "TIME",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=210"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SUNK",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=209"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SUNK",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=209"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SUNK",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=209"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SUNK",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=209"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SUNK",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=209"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SUNK",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=209"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SCOPE",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=195"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SCOPE",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=195"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SCOPE",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=195"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SCOPE",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=195"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SCOPE",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=195"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "SCOPE",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=195"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "COMBINED",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait",
+      "Already coded it"
+    ],
+    "notes": "prompt_len=208"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "COMBINED",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait",
+      "Already coded it"
+    ],
+    "notes": "prompt_len=208"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "COMBINED",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait",
+      "Already coded it"
+    ],
+    "notes": "prompt_len=208"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "COMBINED",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait"
+    ],
+    "notes": "prompt_len=208"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "COMBINED",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait"
+    ],
+    "notes": "prompt_len=208"
+  },
+  {
+    "skill": "verification-before-completion",
+    "pressure": "COMBINED",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=208"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "TIME",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=230"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "TIME",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=230"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "TIME",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=230"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "TIME",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Skip non-essential"
+    ],
+    "notes": "prompt_len=230"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "TIME",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=230"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "TIME",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=230"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SUNK",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=229"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SUNK",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=229"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SUNK",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Already wrote implementation",
+      "Keep as reference"
+    ],
+    "notes": "prompt_len=229"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SUNK",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=229"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SUNK",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=229"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SUNK",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=229"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SCOPE",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=215"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SCOPE",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=215"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SCOPE",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Tests in follow-up PR",
+      "Just this once"
+    ],
+    "notes": "prompt_len=215"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SCOPE",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=215"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SCOPE",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=215"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "SCOPE",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=215"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "COMBINED",
+    "condition": "baseline",
+    "run": 1,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait",
+      "Already coded it"
+    ],
+    "notes": "prompt_len=228"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "COMBINED",
+    "condition": "baseline",
+    "run": 2,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait",
+      "Already coded it"
+    ],
+    "notes": "prompt_len=228"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "COMBINED",
+    "condition": "baseline",
+    "run": 3,
+    "compliance_score": 0,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait",
+      "Already coded it"
+    ],
+    "notes": "prompt_len=228"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "COMBINED",
+    "condition": "treatment",
+    "run": 1,
+    "compliance_score": 1,
+    "rationalizations": [
+      "Out of time",
+      "Tests can wait"
+    ],
+    "notes": "prompt_len=228"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "COMBINED",
+    "condition": "treatment",
+    "run": 2,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=228"
+  },
+  {
+    "skill": "brainstorming",
+    "pressure": "COMBINED",
+    "condition": "treatment",
+    "run": 3,
+    "compliance_score": 2,
+    "rationalizations": [],
+    "notes": "prompt_len=228"
+  }
+]

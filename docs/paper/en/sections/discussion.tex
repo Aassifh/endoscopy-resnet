@@ -1,0 +1,23 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\textbf{Methodological vs empirical contribution.}
+We separate the \emph{pipeline} (CNN-JEPA + mask-aware SE + C0--C10 protocol) from \emph{empirical gains} on public Simula data.
+The pipeline is reusable when unlabeled video and multi-center labels become available; current numbers do not support claiming superiority over ImageNet.
+
+\textbf{Why ImageNet wins here.}
+Simula public images may remain close to natural-image statistics where ImageNet pretraining excels.
+Additionally, with a single center, strict LOO degenerates to a pooled split---reported LOO should be interpreted cautiously until private centers are added.
+
+\textbf{Clinical implications.}
+Polyp recall drops from 97\% (C1) to 83\% (C4) on test---unacceptable for screening deployment without further improvement (focal loss, larger domain pretrain on real video, multi-center training).
+
+\textbf{Polyp class granularity.}
+We use one \emph{polyp} class (including dyed-lifted polyps).
+Endoscopic or histological subtyping (adenoma vs hyperplastic, Paris morphology) requires dedicated labels not present in HyperKvasir; we note this as future work.
+
+\textbf{Comparison to 23-class benchmarks.}
+HyperKvasir B2--B6 macro-F1 $\approx$0.58 reflects a harder fine-grained task; our three-class aggregation raises absolute scores but targets different clinical decisions.
+
+\textbf{Reproducibility.}
+All commands, early-stop configs, and JSON results are versioned in the repository; tables in this paper are auto-generated from benchmark JSON.

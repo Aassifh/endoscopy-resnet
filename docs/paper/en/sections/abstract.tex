@@ -1,0 +1,10 @@
+\begin{abstract}
+Computer-aided analysis of colonoscopy frames can support polyp detection and quality assessment, but labeled data remain scarce and models often fail to generalize across hospitals.
+We propose a \emph{convolutional} Joint-Embedding Predictive Architecture (\method{}) applied to \backbone{} with \emph{mask-aware} squeeze-and-excitation (SE) blocks that compute channel attention only over spatially \emph{visible} pixels under block masking.
+After unsupervised pretraining on unlabeled frames, we fine-tune a clinically motivated three-class task: anatomical \emph{landmark}, \emph{normal mucosa}, and \emph{polyp} (single class, no histological subtypes).
+We report a reproducible benchmark matrix (C0--C10) with strict early stopping on public Simula data (Kvasir + HyperKvasir, \numsamples{} images).
+On the available single-center fold, ImageNet transfer (macro-F1 0.989, polyp recall 0.971) outperforms domain CNN-JEPA fine-tuning (C4: macro-F1 0.910, polyp recall 0.829).
+CNN-JEPA remains competitive with scratch training and shows a label-efficiency trend (macro-F1 0.825--0.907 for 10--50\% labels), but does not surpass ImageNet on public data alone.
+We release code and protocols for multi-center leave-one-center-out evaluation.
+\textbf{Keywords:} colonoscopy, polyp detection, self-supervised learning, JEPA, SE-ResNet.
+\end{abstract}

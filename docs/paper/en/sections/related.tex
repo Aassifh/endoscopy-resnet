@@ -1,0 +1,21 @@
+\section{Related Work}
+\label{sec:related}
+
+\textbf{Endoscopy classification.}
+Kvasir~\cite{pogorelov2017kvasir} and HyperKvasir~\cite{borgli2020hyperkvasir} are standard benchmarks for gastrointestinal image classification.
+Prior work in our repository~\cite{assif2026endoscopy} compared ResNet-50, SE-ResNet-50, and dual-stream color--texture fusion on HyperKvasir (23 classes), reaching test macro-F1 $\approx$0.58--0.59 (B2--B6).
+We instead target a \emph{three-class} clinical taxonomy aligned with in-room decisions rather than fine-grained pathology labels.
+
+\textbf{Channel attention.}
+SE-Net~\cite{hu2018senet} recalibrates channel responses via squeeze-and-excitation on global average pooling (GAP).
+Under JEPA block masking, standard GAP averages over masked zeros and can bias channel statistics; we address this with mask-aware pooling (Section~\ref{sec:maskse}).
+
+\textbf{JEPA and self-supervision.}
+I-JEPA~\cite{assran2023ijepa} uses Vision Transformers; we employ a \emph{CNN-JEPA} with block masking and a convolutional predictor on feature maps---better suited to edge deployment than ViT foundations.
+Related latent-prediction methods include BYOL~\cite{grill2020byol}.
+Medical JEPA literature covers other modalities; colonoscopy-specific CNN-JEPA pretraining remains unexplored to our knowledge.
+
+\textbf{Polyp detection.}
+Classical CAD systems~\cite{tajbakhsh2016cad} emphasize polyp \emph{sensitivity}.
+We report polyp recall alongside macro-F1.
+Our \emph{polyp} class is a single binary clinical category (Kvasir polyp + HyperKvasir \texttt{polyps} and \texttt{dyed-lifted-polyps}); histological subtyping is left for future work.

@@ -1,0 +1,38 @@
+{
+  "phase": "pretrain_shared",
+  "queue": [
+    "pretrain_c4_shared",
+    "pretrain_c2_resnet_shared",
+    "C0_fold_simula",
+    "C1_fold_simula",
+    "C2_fold_simula",
+    "C4_fold_simula",
+    "C3_fold_simula",
+    "C5_fold_simula",
+    "C7_fold_simula",
+    "C8_fold_simula",
+    "C9_fold_simula",
+    "C10_summary"
+  ],
+  "completed": [
+    "pretrain_c4_shared",
+    "pretrain_c2_resnet_shared",
+    "C0_fold_simula",
+    "C1_fold_simula",
+    "C2_fold_simula",
+    "C4_fold_simula",
+    "C3_fold_simula",
+    "C5_fold_simula",
+    "C7_fold_simula",
+    "C8_fold_simula",
+    "C9_fold_simula",
+    "C10_summary"
+  ],
+  "current": null,
+  "early_stop_defaults": {
+    "max_epochs": 30,
+    "patience": 5,
+    "pretrain_max_epochs": 80,
+    "pretrain_patience": 10
+  }
+}

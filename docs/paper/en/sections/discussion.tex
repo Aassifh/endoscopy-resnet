@@ -11,7 +11,7 @@ Accuracy can exceed macro-F1 by $>30$ percentage points on imbalanced fine-grain
 
 \textbf{Why ImageNet wins on T3.}
 Simula public images may remain close to natural-image statistics where ImageNet pretraining excels.
-With a single center, strict LOO degenerates to a pooled split---reported LOO should be interpreted cautiously until private centers are added.
+With a single public center, evaluation uses a pooled group-aware split rather than leave-one-center-out; multi-center LOO awaits private data under \texttt{data/private/}.
 
 \textbf{Clinical implications.}
 Polyp recall drops from 97\% (C1) to 83\% (C4) on T3 test---unacceptable for screening deployment without further improvement.

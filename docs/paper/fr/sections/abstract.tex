@@ -1,7 +1,7 @@
 \begin{abstract}
 L'analyse assistée par ordinateur des images de coloscopie peut aider au dépistage des polypes et au contrôle qualité, mais les données annotées restent rares et les protocoles d'évaluation sont fragmentés.
 Nous contribuons un \textbf{benchmark de classification coloscopique reproductible} : SE-ResNet-50 sensible au masque avec pré-entraînement JEPA convolutif (\method{}), scripts de préparation et protocole unifié (macro-F1, rappel par classe).
-Nous rapportons deux tâches complétées sur les données publiques Simula : (T3) dépistage trois classes (repère / muqueuse normale / polype ; C0--C10) et (T1) taxonomie fine HyperKvasir 23 classes (B2--B6).
+Nous rapportons deux tâches complétées sur les données publiques Simula : (T3) dépistage trois classes (repère / muqueuse normale / polype ; C0--C5, C7--C9) et (T1) taxonomie fine HyperKvasir 23 classes (B2--B6).
 Nous comparons ResNet-50, SE-ResNet-50, fusion dual-stream et affinage CNN-JEPA sous les mêmes réglages d'entraînement.
 \textbf{Nous ne prétendons pas que le CNN-JEPA domaine bat le transfert ImageNet sur ces splits publics.}
 Sur T3 (split au niveau image, centre unique), ImageNet atteint macro-F1 0,989 et rappel polype 0,971 (C1), contre macro-F1 0,910 et rappel polype 0,829 pour l'affinage CNN-JEPA (C4).

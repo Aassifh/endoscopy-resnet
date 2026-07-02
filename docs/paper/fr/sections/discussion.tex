@@ -11,7 +11,7 @@ L'accuracy peut dépasser la macro-F1 de plus de 30 points sur les tâches dés�
 
 \textbf{Pourquoi ImageNet gagne sur T3.}
 Les images publiques Simula restent proches des statistiques d'images naturelles où le pré-entraînement ImageNet excelle.
-Avec un seul centre, le LOO strict se réduit à un split poolé---interpréter avec prudence jusqu'à l'ajout de centres privés.
+Avec un seul centre public, l'évaluation utilise un split poolé groupé plutôt qu'un LOO multi-centres ; l'extension attend \texttt{data/private/}.
 
 \textbf{Implications cliniques.}
 Le rappel polype passe de 97\,\% (C1) à 83\,\% (C4) sur T3---insuffisant pour un déploiement dépistage sans amélioration.

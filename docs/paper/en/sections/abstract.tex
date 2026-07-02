@@ -1,7 +1,7 @@
 \begin{abstract}
 Computer-aided analysis of colonoscopy frames can support polyp detection and quality assessment, but labeled data remain scarce and evaluation protocols are fragmented across datasets and architectures.
 We contribute a \textbf{reproducible colonoscopy classification benchmark}: mask-aware SE-ResNet-50 with convolutional JEPA (\method{}) pretraining, prepare scripts, and a unified evaluation protocol (macro-F1, per-class recall).
-We report two completed tasks on public Simula data: (T3) three-class screening (landmark / normal mucosa / polyp; C0--C10) and (T1) HyperKvasir 23-class fine-grained taxonomy (B2--B6).
+We report two completed tasks on public Simula data: (T3) three-class screening (landmark / normal mucosa / polyp; C0--C5, C7--C9) and (T1) HyperKvasir 23-class fine-grained taxonomy (B2--B6).
 We compare ResNet-50, SE-ResNet-50, dual-stream color/texture fusion, and CNN-JEPA fine-tuning under the same training defaults.
 \textbf{We do not claim that domain CNN-JEPA beats ImageNet transfer on these public splits.}
 On T3 (image-level split, single center), ImageNet transfer reaches macro-F1 0.989 and polyp recall 0.971 (C1), versus macro-F1 0.910 and polyp recall 0.829 for CNN-JEPA fine-tuning (C4).

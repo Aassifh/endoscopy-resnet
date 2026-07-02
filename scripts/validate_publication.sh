@@ -74,6 +74,7 @@ validate_phase_6() {
   echo "=== Phase 6: limitations + clinical framing ==="
   grep -q "Limitations" docs/paper/en/sections/discussion.tex
   grep -q "Limites" docs/paper/fr/sections/discussion.tex
+  grep -q "Data availability" docs/paper/en/sections/methods.tex
   archive_pdfs "06-limitations"
 }
 

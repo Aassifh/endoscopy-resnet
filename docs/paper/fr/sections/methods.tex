@@ -15,9 +15,17 @@ Extensions prévues (hors tableaux principaux) : sous-ensemble pathologie-11 ; a
 \subsection{Protocole expérimental}
 \label{sec:protocol}
 
-\textbf{T3 (C0--C10).} Dépistage trois classes ; fractions de labels C7--C9.
+\textbf{T3 (C0--C5, C7--C9).} Dépistage trois classes sur split \textbf{poolé} Simula (centre public unique ; pas de LOO multi-centres). C7--C9 varient la fraction de labels.
 
 \textbf{T1 (B2--B6).} ResNet, SE-ResNet, dual-stream sur HyperKvasir-23 (supervisé uniquement dans ce manuscrit).
 
 \subsection{Métriques}
 Macro-F1 principale ; \textbf{rappel polype} $= \mathrm{TP}/(\mathrm{TP}+\mathrm{FN})$ pour la classe polype (sensibilité).
+
+\subsection{Disponibilité des données et éthique}
+\label{sec:ethics}
+
+\textbf{Données.} Kvasir v1 et HyperKvasir sont des jeux publics Simula ; nous utilisons les dossiers officiels et \texttt{image-labels.csv} pour le regroupement par procédure.
+Aucune donnée patient privée ni vidéo dans les runs rapportés.
+
+\textbf{Éthique.} Images fixes dé-identifiées ; analyse secondaire de benchmarks ouverts, pas d'étude clinique prospective.

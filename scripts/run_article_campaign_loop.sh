@@ -86,18 +86,13 @@ queue = []
 # Shared pretrain (SE mask-aware + ResNet for C2)
 queue.append("pretrain_c4_shared")
 queue.append("pretrain_c2_resnet_shared")
-# Core LOO C0, C1, C2, C4
+# Core screening runs C0--C5 on each fold
 for fold in folds:
-    for c in ("C0", "C1", "C2", "C4"):
+    for c in ("C0", "C1", "C2", "C3", "C4", "C5"):
         queue.append(f"{c}_{fold}")
-# Ablations H2/H3
-for fold in folds[:1]:
-    queue.extend([f"C3_{fold}", f"C5_{fold}"])
-# Label curve C7-C9 on first fold
+# Label-efficiency C7--C9 on first fold
 for pct in (10, 25, 50):
     queue.append(f"C{7 if pct==10 else 8 if pct==25 else 9}_{folds[0]}")
-# LOO table C10 = all C4 folds (alias)
-queue.append("C10_summary")
 print(json.dumps({
     "phase": "pretrain_shared",
     "queue": queue,
@@ -109,7 +104,7 @@ PY
 }
 
 if $FORCE; then
-  rm -f "${RESULTS_DIR}"/C*_test.json "${RESULTS_DIR}"/C10_summary_test.json
+  rm -f "${RESULTS_DIR}"/C*_test.json "${RESULTS_DIR}"/C*_seed*_test.json
   rm -rf checkpoints/jepa/C*.pt checkpoints/jepa/c*_shared.pt 2>/dev/null || true
   default_queue > "$STATE_FILE"
   echo "Force reset: cleared JEPA results and re-initialized queue."
@@ -320,23 +315,6 @@ case "$run_id" in
       --data-dir "$data_dir" \
       --split test \
       --output "$result_json"
-    ;;
-  C10_summary)
-    python3 - <<'PY'
-import json
-from pathlib import Path
-results = sorted(Path("benchmarks/ml/results").glob("C4_fold_*_test.json"))
-rows = [json.loads(p.read_text()) for p in results]
-summary = {
-    "run_id": "C10_summary",
-    "folds": len(rows),
-    "macro_f1_mean": sum(r["macro_f1"] for r in rows) / max(len(rows), 1),
-    "per_fold": {p.stem.replace("_test", ""): r["macro_f1"] for p, r in zip(results, rows)},
-}
-out = Path("benchmarks/ml/results/C10_summary_test.json")
-out.write_text(json.dumps(summary, indent=2))
-print(json.dumps(summary, indent=2))
-PY
     ;;
   *)
     echo "Unknown job: $run_id"

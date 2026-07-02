@@ -49,7 +49,7 @@ Planned extensions (not in main tables): T2 pathology-11 subset; JEPA fine-tunes
 \subsection{Experimental protocol}
 \label{sec:protocol}
 
-\textbf{T3 (C0--C10).} Screening three-class runs with label fractions C7--C9.
+\textbf{T3 (C0--C5, C7--C9).} Screening three-class runs on a \textbf{pooled} Simula split (single public center; not multi-center LOO). C7--C9 vary labeled fraction.
 
 \textbf{T1 (B2--B6).} ResNet, SE-ResNet, dual-stream on HyperKvasir-23 (supervised only in this manuscript).
 
@@ -57,6 +57,16 @@ Planned extensions (not in main tables): T2 pathology-11 subset; JEPA fine-tunes
 Primary: \textbf{macro-F1} on validation/test.
 Clinical secondary: \textbf{polyp recall} $= \mathrm{TP}/(\mathrm{TP}+\mathrm{FN})$ for the polyp class (sensitivity among true polyps).
 
+\subsection{Data availability and ethics}
+\label{sec:ethics}
+
+\textbf{Data.} Kvasir v1 and HyperKvasir labeled images are public research datasets from Simula (see references); we use the official class folders and \texttt{image-labels.csv} for grouping metadata.
+No private patient data or video is included in the reported runs.
+Prepare scripts and fixed random seeds reproduce train/val/test layouts under \texttt{data/}.
+
+\textbf{Ethics.} Public de-identified still frames only; this work is secondary analysis of open benchmarks, not a prospective clinical study.
+Deployment would require independent validation and regulatory review.
+
 \subsection{Implementation}
 PyTorch on Apple MPS; open repository \texttt{endoscopy-resnet}.
-Campaign orchestration: \texttt{run\_full\_jepa\_benchmarks.sh}; early-stop logs per run.
+Campaign orchestration: \texttt{run\_article\_campaign\_loop.sh}; significance via \texttt{compute\_benchmark\_stats.py}.

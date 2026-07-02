@@ -32,13 +32,14 @@ Work top-to-bottom; each phase unblocks the next.
   - _Done when:_ no image from one procedure appears in more than one split.
 - [ ] **1.2 Re-run all C0–C5 + B2–B6** on grouped splits. Expect the near-perfect
   C1 (0.989) to drop — that is the honest number.
+  _Queue updated (C0–C5, no C10); run: `bash scripts/run_article_campaign_loop.sh --force`_
 - [ ] **1.3 Multi-seed.** ≥3 seeds per config; report **mean ± std** and
   bootstrap 95% CIs on macro-F1 and polyp recall.
-  - _Done when:_ every table cell is `mean ± std`, not a single number.
-  _Infra: `benchmarks/ml/seeds.json`, `run_multi_seed_campaign.sh`, `generate_paper_tables.py` mean±std; re-runs pending._
+  _Infra: `benchmarks/ml/seeds.json`, `run_multi_seed_campaign.sh`, `generate_paper_tables.py`; re-runs pending._
 - [ ] **1.4 Significance tests** for every "X beats Y" claim (paired across
   seeds / bootstrap). Soften or remove within-noise claims (B6 vs B2:
   0.586 vs 0.585; C2 vs C4).
+  _Script: `pixi run benchmark-stats` (needs multi-seed JSON outputs)._
 
 ---
 
@@ -64,7 +65,7 @@ Work top-to-bottom; each phase unblocks the next.
 - [ ] **3.2 Cross-dataset external validation** (replaces missing multi-center):
   train on Kvasir → test on HyperKvasir, and reverse. Supports the
   "generalizes across hospitals" motivation without private data.
-- [ ] **3.3 Drop or fix "LOO".** With one center, remove the C10 "LOO mean
+- [x] **3.3 Drop or fix "LOO".** With one center, remove the C10 "LOO mean
   (n=1)" table or relabel it plainly as a pooled split.
 
 ---
@@ -101,7 +102,7 @@ Work top-to-bottom; each phase unblocks the next.
   polyp class — macro-F1 alone under-serves a screening claim.
 - [ ] **6.2 Add per-class counts, data-availability statement, ethics note, and a
   consolidated Limitations paragraph** (single center, image counts, compute).
-  _Partial: Limitations subsection added (EN+FR); ethics/data statement pending._
+  _Partial: Limitations + data/ethics subsections (EN+FR); PR/ROC pending._
 - [ ] **6.3 Minor fixes:** hardware line; reconcile `\numsamples` vs T1/T3
   counts; regenerate all figures/tables from final JSON.
 

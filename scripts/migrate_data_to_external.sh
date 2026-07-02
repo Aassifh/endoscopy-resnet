@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Copy large datasets to an external drive (mkdir + cp) and symlink back into the repo.
+# Move large datasets to an external drive (mkdir + mv) and symlink back into the repo.
+# Keeps the drive filesystem unchanged (NTFS stays NTFS).
 #
 # Usage:
 #   bash scripts/migrate_data_to_external.sh
@@ -20,31 +21,18 @@ if [[ ! -d "$VOLUME" ]]; then
   exit 1
 fi
 
-if ! mkdir -p "${VOLUME}/.endoscopy_write_test" 2>/dev/null; then
-  echo "Cannot write to $VOLUME (read-only filesystem)." >&2
-  echo "Reformat the drive as exFAT in Disk Utility, then re-run this script." >&2
+mkdir -p "$EXTERNAL" || {
+  echo "Cannot create $EXTERNAL — volume is not writable from this Mac." >&2
+  echo "macOS mounts NTFS read-only by default; mv needs write access on the drive." >&2
   exit 1
-fi
-rmdir "${VOLUME}/.endoscopy_write_test"
+}
 
-mkdir -p "$EXTERNAL"
-
-copy_and_link() {
+move_and_link() {
   local relpath="$1"
   local src="$ROOT/$relpath"
   local name
   name="$(basename "$relpath")"
-  local parent
-  parent="$(dirname "$relpath")"
   local dst="$EXTERNAL/$name"
-
-  if [[ "$parent" == "data" ]]; then
-    dst="$EXTERNAL/$name"
-  elif [[ "$relpath" == "checkpoints" ]]; then
-    dst="$EXTERNAL/checkpoints"
-  else
-    dst="$EXTERNAL/$relpath"
-  fi
 
   if [[ -L "$src" ]]; then
     echo "Skip $relpath — already linked -> $(readlink "$src")"
@@ -56,22 +44,20 @@ copy_and_link() {
   fi
 
   echo "=== $relpath ==="
-  mkdir -p "$(dirname "$dst")"
-  if [[ -d "$dst" ]]; then
-    echo "  Merging into existing $dst"
+  if [[ -e "$dst" ]]; then
+    echo "  Already on external: $dst (linking only)"
   else
-    echo "  cp -a $src -> $(dirname "$dst")/"
-    cp -a "$src" "$(dirname "$dst")/"
+    echo "  mv $src -> $EXTERNAL/"
+    mv "$src" "$EXTERNAL/"
   fi
-  rm -rf "$src"
-  ln -s "$dst" "$src"
+  ln -snf "$dst" "$src"
   echo "  $src -> $dst"
 }
 
 for sub in raw kvasir hyperkvasir colonoscopy_3class hyperkvasir_pathology jepa_frames private; do
-  copy_and_link "data/$sub"
+  move_and_link "data/$sub"
 done
-copy_and_link "checkpoints"
+move_and_link "checkpoints"
 
 mkdir -p "$ROOT/data"
 cat > "$ROOT/data/DATA_ROOT.txt" <<EOF

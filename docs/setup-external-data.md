@@ -1,65 +1,46 @@
-# External data storage
+# External data storage (TOSHIBA EXT)
 
-Large image datasets and checkpoints are stored on the **Toshiba external drive** to avoid filling the internal disk.
+Large image datasets and checkpoints live on the external drive. The repo uses **symlinks** under `data/` and `checkpoints/` so scripts keep working unchanged.
 
-| Repo path | External location |
-|-----------|-------------------|
-| `data/raw/` | `/Volumes/TOSHIBA EXT/endoscopy-resnet-data/raw/` |
-| `data/kvasir/` | `.../kvasir/` |
-| `data/hyperkvasir/` | `.../hyperkvasir/` |
-| `data/colonoscopy_3class/` | `.../colonoscopy_3class/` |
-| `data/jepa_frames/` | `.../jepa_frames/` (99k unlabeled stills) |
-| `checkpoints/` | `.../checkpoints/` |
+## Migrate (mkdir + cp)
 
-## First-time setup (or new machine)
-
-1. Mount **TOSHIBA EXT**.
-2. From the repo root:
+Mount **TOSHIBA EXT**, then from the repo root:
 
 ```bash
-bash scripts/migrate_data_to_external.sh
-# or explicit mount:
 bash scripts/migrate_data_to_external.sh "/Volumes/TOSHIBA EXT"
 ```
 
-3. Verify:
+This runs:
 
-```bash
-ls -la data/raw data/kvasir checkpoints
-pixi run prepare-colonoscopy-3class
+1. `mkdir -p "/Volumes/TOSHIBA EXT/endoscopy-resnet-data"`
+2. `cp -a` each of `data/raw`, `data/kvasir`, `data/hyperkvasir`, `data/colonoscopy_3class`, `checkpoints`, …
+3. Removes the local copy and symlinks back into the repo
+4. Re-runs `prepare-colonoscopy-3class`
+
+## Layout on the drive
+
+```
+/Volumes/TOSHIBA EXT/endoscopy-resnet-data/
+├── raw/
+├── kvasir/
+├── hyperkvasir/
+├── colonoscopy_3class/
+├── jepa_frames/          # 99k unlabeled stills go here
+└── checkpoints/
 ```
 
 ## Download unlabeled HyperKvasir (~29 GB)
 
-With the drive mounted, downloads land on external storage automatically:
+With the drive mounted and migrated:
 
 ```bash
 pixi run prepare-hyperkvasir-unlabeled
 ```
 
-## If the drive is unplugged
+## NTFS read-only?
 
-Symlinks under `data/` and `checkpoints/` will break until the volume is remounted. On a different mount path, re-run the migrate script with the new path.
+If `cp` fails with **Read-only file system**, macOS cannot write to NTFS. Reformat the Toshiba as **exFAT** in Disk Utility (backup first), then run the migrate script again.
 
-## NTFS read-only on macOS (TOSHIBA EXT)
+## Drive unplugged
 
-The Toshiba drive is formatted **NTFS**. macOS mounts it **read-only** by default (~78 GB free on the volume, but not writable until fixed).
-
-**Recommended fix** (keeps existing Windows files):
-
-```bash
-bash scripts/setup_toshiba_write.sh "/Volumes/TOSHIBA EXT"
-bash scripts/migrate_data_to_external.sh "/Volumes/TOSHIBA_EXT_RW"
-```
-
-That installs macFUSE + ntfs-3g (sudo + one-time kernel extension approval in System Settings), remounts writable at `/Volumes/TOSHIBA_EXT_RW`, then moves data and symlinks back into the repo.
-
-**Alternative:** reformat the drive as **exFAT** in Disk Utility (backup first — erases the disk), then:
-
-```bash
-bash scripts/migrate_data_to_external.sh "/Volumes/TOSHIBA EXT"
-```
-
-## Current root
-
-See `data/DATA_ROOT.txt` (gitignored) after migration.
+Remount at `/Volumes/TOSHIBA EXT` before training or downloading.

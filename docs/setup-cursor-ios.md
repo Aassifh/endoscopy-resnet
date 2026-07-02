@@ -19,6 +19,8 @@ Use this repo from your **Cursor iOS app** (not a code editor — an **agent rem
 
 ## 2. Three ways to iterate from your phone
 
+**Start here if Remote Control is missing** (common): use **A** or **B**.
+
 ### A) Cloud agent (Mac can be off)
 
 Best for: docs, scripts, small refactors, reading benchmark JSON, updating LaTeX.
@@ -33,12 +35,12 @@ Best for: docs, scripts, small refactors, reading benchmark JSON, updating LaTeX
 
 **Note:** Large datasets (`data/kvasir`, `checkpoints/`) are **not in git**. Cloud agents cannot train on full HyperKvasir unless you add data or document download steps.
 
-### B) My Machines / your Mac (GPU + pixi)
+### B) My Machines / your Mac (GPU + pixi) — **recommended**
 
-Best for: `pixi run pretrain-jepa`, full benchmark campaign, MPS training.
+Best for: `pixi run pretrain-jepa`, full benchmark campaign, MPS training. **No Remote Control needed.**
 
-1. **On Mac (once):** Cursor ≥ 3.9.8 → register this Mac under **My Machines** (Dashboard → Cloud Agents).
-2. Keep Mac **awake & online** (Settings → Agents → *Keep this computer awake* when plugged in).
+1. **On Mac:** [cursor.com/dashboard](https://cursor.com/dashboard) → **Cloud Agents** → **My Machines** → add this Mac.
+2. Keep Mac **awake & online** (System Settings → prevent sleep when plugged in).
 3. Cursor iOS → New agent → worker: **My Machines** → select your Mac.
 4. Example prompts:
    - *“Run bash scripts/run_article_campaign_loop.sh --smoke and summarize JSON in benchmarks/ml/results/.”*
@@ -46,16 +48,21 @@ Best for: `pixi run pretrain-jepa`, full benchmark campaign, MPS training.
 
 Tool calls run **on your Mac**; you steer from the phone.
 
-### C) Remote Control (continue desktop session)
+### C) Remote Control (optional — often not available yet)
 
-Best for: you started work on Mac, left desk, want to keep same agent.
+**Important:** Remote Control is **not** in `Cursor Settings` (gear icon). Per [Cursor docs](https://cursor.com/docs/cloud-agent/mobile), the toggle lives only in the **Agents Window**, and it may **not appear yet** on all accounts (gradual rollout).
 
-1. **On Mac:** Agents window → Settings → Agents → enable **Remote Control**.
-2. In the agent chat on Mac, send: `/remote-control`
-3. Open **Cursor iOS** → inbox → same session appears.
-4. Send follow-ups from your phone; terminal/file edits still run on Mac.
+If you don't see it, **skip this section** — use **Cloud** or **My Machines** below instead (works for most people).
 
-Requires: git remote (already set), Mac awake, Cursor 3.9.8+.
+When available:
+
+1. Open the **Agents** panel/window (not the regular chat sidebar).
+2. In **that** panel: gear / Settings → **Agents** → enable **Remote Control**.
+3. Needs Cursor **≥ 3.9.8**, paid plan, **Privacy Mode** (not Legacy), git remote on the repo.
+4. In an agent chat on Mac, send: `/remote-control`
+5. Session appears in the **Cursor iOS inbox**.
+
+**Teams/Enterprise:** admin must enable it in Dashboard → Cloud Agents → Self-Hosted.
 
 ---
 
@@ -91,7 +98,7 @@ Project context for agents: see **[AGENTS.md](../AGENTS.md)** at repo root.
 
 - Agents started on **phone** appear in desktop **Cloud Agents** panel and [cursor.com/agents](https://cursor.com/agents).
 - Agents started on **desktop** appear in the **iOS inbox** automatically.
-- Use **`/remote-control`** to hand off a local session to your phone.
+- Use **`/remote-control`** to hand off a local session to your phone (only if that feature is enabled on your account).
 
 ---
 
@@ -99,11 +106,12 @@ Project context for agents: see **[AGENTS.md](../AGENTS.md)** at repo root.
 
 | Problem | Fix |
 |---------|-----|
+| **No Remote Control in Settings** | Normal — it's only in the **Agents Window** settings, not global Settings; often not rolled out yet. Use **My Machines** or **Cloud** instead. |
 | Repo not listed | GitHub not connected or repo not granted — fix in Cursor Dashboard |
 | “Privacy Mode (Legacy)” | Switch to Privacy Mode in app prompt |
-| My Machine unavailable | Mac asleep, offline, or not registered |
-| Remote Control missing | Cursor < 3.9.8, or team admin disabled Self-Hosted |
-| Agent can’t train | Expected on Cloud worker — use **My Machines** + Mac with pixi/MPS |
+| My Machine unavailable | Mac asleep, offline, or not registered under Dashboard → Cloud Agents → My Machines |
+| `/remote-control` unknown | Feature not on your build yet — update Cursor or use My Machines |
+| Agent can’t train | Use **My Machines** (Mac with pixi/MPS), not Cloud worker |
 | `data/` not found | Run on Mac: `pixi run prepare-colonoscopy-3class` |
 
 ---

@@ -1,7 +1,7 @@
 .pixi/
 *.pth
 checkpoints/
-optuna_endoscopy.db
+optuna*.db
 __pycache__/
 *.py[cod]
 .DS_Store
@@ -13,6 +13,18 @@ data/hyperkvasir/
 data/colonoscopy_3class/
 data/jepa_frames/
 data/private/
+# Synthetic smoke data — regenerate: python scripts/prepare_benchmark_data.py
+data/train/
+data/val/
+data/test/
+
+# Benchmark run logs (JSON/MD results stay tracked)
+benchmarks/ml/results/*.log
+benchmarks/ml/results/*.nohup.log
+
+# Large standalone PDFs (LaTeX sources + paper PDFs stay optional)
+docs/Revue_*.pdf
+docs/Synthese_*.pdf
 
 # LaTeX build artifacts (PDFs can be regenerated)
 docs/paper/en/*.aux

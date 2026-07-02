@@ -2,24 +2,67 @@
 
 \begin{table}[t]
 \centering
-\caption{Main benchmark comparison on the Simula fold (test split, $n=1433$).}
+\caption{Three-class screening (T3) on Simula test split ($n=1433$). Group-aware split (grouped); 3 seeds.}
 \label{tab:main}
 \begin{tabular}{lcc}
 \toprule
 Method & Macro-F1 & Polyp recall \\
 \midrule
+SE-ResNet scratch & 0.899 & 0.836 \\
+SE-ResNet ImageNet & 0.989 & 0.971 \\
+ResNet-50 + CNN-JEPA & 0.913 & 0.778 \\
+SE + CNN-JEPA (SE standard) & 0.910 & 0.828 \\
+SE + CNN-JEPA (SE mask-aware) & 0.910 & 0.828 \\
+SE + frozen teacher & 0.910 & 0.828 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{table}[t]
 \centering
-\caption{Label-efficiency curve for the proposed method (C4 backbone).}
+\caption{Label-efficiency curve for C4 (mask-aware SE + CNN-JEPA).}
 \label{tab:labels}
 \begin{tabular}{lcc}
 \toprule
 Setting & Macro-F1 & Polyp recall \\
 \midrule
+ImageNet (100\% labels) & 0.989 & 0.971 \\
+C4 (100\% labels) & 0.910 & 0.828 \\
+C4 @ 10\% labels & 0.825 & 0.726 \\
+C4 @ 25\% labels & 0.871 & 0.712 \\
+C4 @ 50\% labels & 0.907 & 0.723 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{HyperKvasir 23-class supervised baselines (T1, test split). Prior work on this dataset reports macro-F1 $\approx$0.55--0.60 for ResNet-style fine-tuning.}
+\label{tab:hk23}
+\begin{tabular}{lllcc}
+\toprule
+Run & Architecture & Pretrain & Macro-F1 & Acc. \\
+\midrule
+B2 & ResNet-50 & ImageNet & 0.585 & 0.879 \\
+B3 & SE-ResNet-50 & scratch & 0.439 & 0.725 \\
+B4 & SE-ResNet-50 & ImageNet & 0.577 & 0.882 \\
+B5 & Dual-stream & scratch & 0.448 & 0.755 \\
+B6 & Dual-stream & ImageNet & 0.586 & 0.888 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Per-class metrics for C4 on T3 test.}
+\label{tab:c4_perclass}
+\begin{tabular}{lccc}
+\toprule
+Class & Precision & Recall & F1 \\
+\midrule
+Landmark & 0.940 & 0.930 & 0.930 \\
+Normal mucosa & 0.890 & 0.990 & 0.940 \\
+Polyp & 0.900 & 0.830 & 0.860 \\
 \bottomrule
 \end{tabular}
 \end{table}

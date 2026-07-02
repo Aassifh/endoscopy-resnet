@@ -2,17 +2,19 @@
 \label{sec:intro}
 
 La coloscopie est l'examen de référence pour le dépistage du cancer colorectal.
-Les systèmes d'aide à la détection (CAD) analysent des images fixes pour signaler un polype suspect et confirmer les repères anatomiques (cæcum, iléon) requis par les scores de qualité.
-Les réseaux convolutifs conviennent au déploiement quasi temps réel, mais exigent beaucoup d'annotations et sur-apprennent souvent l'apparence d'un seul centre.
+Les systèmes d'aide à la détection (CAD) analysent des images fixes pour signaler un polype suspect et confirmer les repères anatomiques requis par les scores de qualité.
+Les réseaux convolutifs conviennent au déploiement quasi temps réel, mais les résultats publiés restent difficiles à comparer entre architectures, régimes de pré-entraînement et définitions de tâches.
 
-L'apprentissage auto-supervisé peut réduire le coût d'annotation en pré-entraînant sur des vidéos non étiquetées.
-Les architectures prédictives jointes (JEPA)~\cite{lecun2022path,assran2023ijepa} apprennent en prédisant des représentations latentes de vues masquées, sans reconstruction pixel à pixel.
-Des variantes JEPA existent en imagerie médicale (échographie, IRM), mais pas pour la coloscopie avec des CNN légers déployables en salle.
+Les benchmarks publics mélangent détection binaire, dépistage trois classes agrégé et taxonomies multi-classes sans protocole ni code partagés.
+Le pré-entraînement auto-supervisé peut réduire le coût d'annotation, mais son avantage sur le transfert ImageNet en endoscopie reste une question empirique.
 
-\frbrief{Nous fournissons un pipeline ouvert et reproductible : pré-entraînement CNN-JEPA sur frames coloscopiques, blocs SE sensibles au masque compatibles avec le masquage JEPA, et un benchmark à trois classes cliniques (repère / muqueuse normale / polype) avec courbe d'efficacité en labels et protocole leave-one-center-out.
-Nous ne prétendons pas battre ImageNet sur les données publiques Simula ; nous rapportons les résultats honnêtement et publions le code.}
+Les architectures prédictives jointes (JEPA)~\cite{lecun2022path,assran2023ijepa} apprennent en prédisant des représentations latentes de vues masquées.
+Nous adaptons un JEPA \emph{convolutif} aux frames coloscopiques avec des blocs SE sensibles au masque compatibles avec le masquage spatial.
+
+\frbrief{Nous fournissons un \textbf{benchmark et une implémentation de référence reproductibles}---sans prétendre que le JEPA domaine bat ImageNet sur les données publiques Simula.
+La contribution principale est le protocole, le code et un rapport honnête sur les tâches complétées T3 (dépistage) et T1 (HyperKvasir-23).}
 
 \textbf{Contributions.}
-(1)~\textbf{Méthode :} JEPA convolutif (\method{}) sur \backbone{} pour frames non annotées.
-(2)~\textbf{Technique :} blocs SE sensibles au masque avec moyenne globale pondérée par le masque spatial.
-(3)~\textbf{Évaluation :} benchmark C0--C10 reproductible, fractions de labels (10/25/50\,\%), cadre LOO multi-centres (un centre public disponible à ce jour).
+(1)~\textbf{Méthode :} CNN-JEPA sur SE-ResNet-50 avec attention canal sensible au masque.
+(2)~\textbf{Benchmark :} runs C0--C10 (T3) et B2--B6 (T1) reproductibles, arrêt anticipé, métriques JSON et tableaux auto-générés.
+(3)~\textbf{Étude empirique :} le transfert ImageNet surpasse le CNN-JEPA domaine sur les splits publics actuels ; nous documentons les tendances d'efficacité en labels et les ablations sans surestimer les gains.

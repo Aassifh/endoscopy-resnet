@@ -1,0 +1,4 @@
+{
+  "seeds": [42, 43, 44],
+  "description": "Training/evaluation seeds for multi-seed benchmark reporting (mean ± std)."
+}

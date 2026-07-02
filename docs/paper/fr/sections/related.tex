@@ -11,9 +11,9 @@ SE-Net~\cite{hu2018senet} recalibre les canaux via une moyenne globale (GAP) pui
 Sous masquage JEPA, les zéros de padding biaisent la GAP ; nous proposons un pooling pondéré par le masque (section~\ref{sec:maskse}).
 
 \textbf{JEPA et auto-supervision.}
-I-JEPA~\cite{assran2023ijepa} repose sur des Vision Transformers ; nous employons un \emph{CNN-JEPA} avec prédicteur convolutif sur cartes de features, plus adapté au déploiement léger qu'un foundation model ViT.
+I-JEPA~\cite{assran2023ijepa} repose sur des Vision Transformers ; nous employons un \emph{CNN-JEPA} avec masquage par blocs et prédicteur convolutif sur cartes de features---plus adapté au déploiement léger qu'un foundation model ViT.
+Nous ne prétendons pas inventer le pré-entraînement convolutif par prédiction latente ; notre originalité porte sur l'\textbf{intégration SE sensible au masque} et le \textbf{protocole de benchmark reproductible} pour la classification coloscopique.
 Des travaux proches incluent BYOL~\cite{grill2020byol}.
-Le pré-entraînement JEPA coloscopique sur CNN reste, à notre connaissance, non couvert.
 
 \textbf{Détection de polypes.}
 Les systèmes CAD~\cite{tajbakhsh2016cad} mettent l'accent sur la \emph{sensibilité} aux polypes.

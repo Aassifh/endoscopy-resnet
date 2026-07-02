@@ -1,16 +1,22 @@
 \section{Experiments}
 \label{sec:experiments}
 
-\textbf{Hardware.} Apple MPS (AMD Radeon Pro 5300M); full campaign $\approx$24.5\,h.
+\textbf{Completed tasks.}
+\begin{itemize}
+  \item \textbf{T3 (screening):} three-class colonoscopy (C0--C10), single public center \texttt{simula}.
+  \item \textbf{T1 (fine-grained):} HyperKvasir 23-class supervised baselines (B2--B6).
+\end{itemize}
+Extended tasks (pathology-11, JEPA on HK-23, ViT linear probe) are defined in the repository roadmap but \emph{not} reported here until grouped splits and multi-seed runs complete.
 
-\textbf{Pretraining.} Up to 4{,}000 frames (proxy: labeled train images when unlabeled video unavailable); shared checkpoints for C2--C5; early stop at epoch 20 (patience on validation latent loss).
+\textbf{Hardware.} Apple MPS (AMD Radeon Pro 5300M).
 
-\textbf{Fine-tuning.} Batch size 16, AdamW lr $10^{-4}$ (ImageNet) or $10^{-3}$ (scratch), image size 224.
-Test split: 1{,}433 frames (15\% per class, seed 42).
+\textbf{Pretraining (CNN-JEPA).} Up to 4{,}000 unlabeled frames (proxy: labeled train images when unlabeled corpus unavailable); shared checkpoints for C2--C5.
+Planned: HyperKvasir $\sim$99k unlabeled stills for domain pretrain.
 
-\textbf{Hypotheses (pre-registered).}
-H1: C4 beats C1 under limited labels (LOO macro-F1).
+\textbf{Fine-tuning.} Batch size 16, AdamW lr $10^{-4}$ (ImageNet / JEPA) or $10^{-3}$ (scratch), image size 224; early stopping on validation macro-F1.
+
+\textbf{Hypotheses (exploratory, not confirmed).}
+H1: C4 beats C1 under limited labels.
 H2: C4 beats C3 (mask-aware SE).
 H3: C4 $\geq$ C5 at 25\% labels.
-
-\textbf{Note on LOO.} Only one public center (\texttt{simula}) is available; when the held-out fold has no training centers, evaluation uses the pooled \texttt{all} split---LOO multi-center validation awaits private centers under \texttt{data/private/}.
+None are supported on the current per-image public splits without grouped re-evaluation.

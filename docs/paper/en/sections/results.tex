@@ -6,6 +6,7 @@
 \input{../shared/figures/label_curve.tex}
 \input{../shared/figures/confusion_c4.tex}
 
+\subsection{Three-class screening (T3)}
 \Cref{tab:main} summarizes the main comparison on the Simula test split.
 ImageNet transfer (C1) achieves the best macro-F1 (0.989) and polyp recall (0.971).
 Domain CNN-JEPA with mask-aware SE (C4) reaches macro-F1 0.910 and polyp recall 0.829.
@@ -17,8 +18,13 @@ ResNet-50 + CNN-JEPA (C2) reaches 0.913 macro-F1 but lower polyp recall (0.778).
 \textbf{Label efficiency (\Cref{tab:labels}, \Cref{fig:labelcurve}).}
 C4 macro-F1 increases from 0.825 (10\% labels) to 0.907 (50\%) and 0.910 (100\%), but remains below C1 at all observed fractions.
 
-\textbf{Confusion analysis (\Cref{fig:confusion}).}
+\subsection{HyperKvasir 23-class (T1)}
+\Cref{tab:hk23} reports supervised baselines B2--B6 on the official 23-class taxonomy.
+Macro-F1 ranges $\approx$0.44--0.59 while accuracy exceeds 0.87, reflecting severe class imbalance.
+B6 (dual-stream, ImageNet) and B2 (ResNet, ImageNet) differ by 0.001 macro-F1 (0.586 vs 0.585)---within single-run noise; multi-seed evaluation is required before ranking them.
+
+\textbf{Confusion analysis (T3, \Cref{fig:confusion}).}
 For C4, main polyp errors are confusions with landmark (12.4\% of true polyps) and normal mucosa (4.7\%).
 \Cref{tab:c4_perclass} reports per-class precision/recall for C4.
 
-\textbf{LOO summary.} C10 mean macro-F1 for C4: 0.910 ($n=1$ fold).
+\textbf{Split caveat.} Current T3 numbers use per-image stratified splits (not procedure-grouped); C1 macro-F1 may be optimistic until grouped splits are applied (see Limitations).

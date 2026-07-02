@@ -1,9 +1,10 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-We presented a convolutional JEPA framework on mask-aware SE-ResNet-50 for colonoscopy frame classification, with a reproducible three-class benchmark and label-efficiency protocol.
-On public Simula data, ImageNet transfer remains the strongest baseline; CNN-JEPA fine-tuning is competitive with scratch training but does not yet validate our primary hypothesis H1.
-Future work: real unlabeled video pretraining, private multi-center LOO folds, polyp subtyping with histology-linked datasets, and comparison to ViT foundation linear probes.
+We presented a convolutional JEPA framework on mask-aware SE-ResNet-50 and a \textbf{reproducible colonoscopy classification benchmark} for screening (3-class) and HyperKvasir-23 fine-grained classification (T1).
+On public Simula data, ImageNet transfer remains the strongest baseline for screening; fine-grained tasks show macro-F1 $\approx$0.58 with dual-stream B6 leading supervised runs.
+CNN-JEPA fine-tuning is competitive with scratch training on T3 but does not yet validate hypothesis H1.
+Future work: polyp histology (ERCPMP, PIBAdb), real unlabeled video pretraining, private multi-center LOO folds, and ViT foundation linear probes.
 
 \section*{Acknowledgments}
 We thank the Simula/Kvasir teams for public datasets.

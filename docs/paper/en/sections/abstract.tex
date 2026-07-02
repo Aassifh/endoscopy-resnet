@@ -1,10 +1,12 @@
 \begin{abstract}
-Computer-aided analysis of colonoscopy frames can support polyp detection and quality assessment, but labeled data remain scarce and models often fail to generalize across hospitals.
-We propose a \emph{convolutional} Joint-Embedding Predictive Architecture (\method{}) applied to \backbone{} with \emph{mask-aware} squeeze-and-excitation (SE) blocks that compute channel attention only over spatially \emph{visible} pixels under block masking.
-After unsupervised pretraining on unlabeled frames, we fine-tune a clinically motivated three-class task: anatomical \emph{landmark}, \emph{normal mucosa}, and \emph{polyp} (single class, no histological subtypes).
-We report a reproducible benchmark matrix (C0--C10) with strict early stopping on public Simula data (Kvasir + HyperKvasir, \numsamples{} images).
-On the available single-center fold, ImageNet transfer (macro-F1 0.989, polyp recall 0.971) outperforms domain CNN-JEPA fine-tuning (C4: macro-F1 0.910, polyp recall 0.829).
-CNN-JEPA remains competitive with scratch training and shows a label-efficiency trend (macro-F1 0.825--0.907 for 10--50\% labels), but does not surpass ImageNet on public data alone.
-We release code and protocols for multi-center leave-one-center-out evaluation.
-\textbf{Keywords:} colonoscopy, polyp detection, self-supervised learning, JEPA, SE-ResNet.
+Computer-aided analysis of colonoscopy frames can support polyp detection and quality assessment, but labeled data remain scarce and evaluation protocols are fragmented across datasets and architectures.
+We contribute a \textbf{reproducible colonoscopy classification benchmark}: mask-aware SE-ResNet-50 with convolutional JEPA (\method{}) pretraining, prepare scripts, and a unified evaluation protocol (macro-F1, per-class recall).
+We report two completed tasks on public Simula data: (T3) three-class screening (landmark / normal mucosa / polyp; C0--C10) and (T1) HyperKvasir 23-class fine-grained taxonomy (B2--B6).
+We compare ResNet-50, SE-ResNet-50, dual-stream color/texture fusion, and CNN-JEPA fine-tuning under the same training defaults.
+\textbf{We do not claim that domain CNN-JEPA beats ImageNet transfer on these public splits.}
+On T3 (image-level split, single center), ImageNet transfer reaches macro-F1 0.989 and polyp recall 0.971 (C1), versus macro-F1 0.910 and polyp recall 0.829 for CNN-JEPA fine-tuning (C4).
+On T1, macro-F1 $\approx$0.44--0.59 reflects severe class imbalance; dual-stream ImageNet (B6) matches ResNet ImageNet (B2) within measurement noise (0.586 vs 0.585).
+CNN-JEPA shows a label-efficiency \emph{trend} on T3 but does not surpass ImageNet at any tested label fraction.
+We release code, JSON results, and auto-generated LaTeX tables; grouped splits and multi-seed reporting are planned extensions.
+\textbf{Keywords:} colonoscopy, classification benchmark, self-supervised learning, JEPA, SE-ResNet, HyperKvasir.
 \end{abstract}

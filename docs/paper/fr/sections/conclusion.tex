@@ -1,9 +1,10 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-Nous avons présenté un cadre CNN-JEPA sur SE-ResNet-50 sensible au masque pour la classification de frames coloscopiques, avec un benchmark reproductible à trois classes.
-Sur les données publiques Simula, le transfert ImageNet reste la référence la plus forte ; CNN-JEPA est compétitif face au scratch mais ne valide pas encore l'hypothèse H1.
-Perspectives : vidéo non annotée réelle, folds LOO multi-centres privés, typage des polypes, comparaison à une sonde linéaire sur foundation model ViT.
+Nous avons présenté un cadre CNN-JEPA sur SE-ResNet-50 sensible au masque et un \textbf{benchmark de classification coloscopique reproductible} pour le dépistage (3 classes) et HyperKvasir-23 (T1).
+Sur les données publiques Simula, le transfert ImageNet reste la référence pour le dépistage ; les tâches fines montrent une macro-F1 $\approx$0,58 avec B6 dual-stream en tête des runs supervisés.
+CNN-JEPA est compétitif face au scratch sur T3 mais ne valide pas encore l'hypothèse H1.
+Perspectives : histologie des polypes (ERCPMP, PIBAdb), vidéo non annotée réelle, LOO multi-centres privés, sonde linéaire ViT.
 
 \section*{Remerciements}
 Nous remercions les équipes Simula/Kvasir pour les jeux de données publics.

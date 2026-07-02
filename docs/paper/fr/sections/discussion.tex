@@ -1,15 +1,34 @@
 \section{Discussion}
 \label{sec:discussion}
 
-\textbf{Apport méthodologique vs empirique.}
-Le pipeline (CNN-JEPA + SE sensible au masque + protocole C0--C10) est réutilisable ; les chiffres actuels sur Simula ne démontrent pas la supériorité sur ImageNet.
+\textbf{Contribution méthodologique vs empirique.}
+Nous séparons le \emph{pipeline} (CNN-JEPA + SE sensible au masque + protocole T1/T3 unifié) des \emph{gains empiriques} sur les données publiques Simula.
+Le pipeline est réutilisable lorsque vidéos non annotées et labels multi-centres seront disponibles ; les chiffres actuels ne soutiennent pas la supériorité sur ImageNet pour le dépistage (T3).
 
-\textbf{Pourquoi ImageNet domine.} Les images publiques peuvent rester proches de statistiques naturelles favorisant ImageNet ; avec un seul centre, le LOO strict se dégrade en split poolé.
+\textbf{Difficulté des tâches et métriques.}
+La macro-F1 absolue chute d'environ 0,99 (T3, C1) à environ 0,58 (T1, B6) avec l'augmentation du nombre de classes et de l'hétérogénéité clinique.
+L'accuracy peut dépasser la macro-F1 de plus de 30 points sur les tâches déséquilibrées ; macro-F1 et rappel par classe restent obligatoires.
 
-\textbf{Implications cliniques.} Rappel polype 83\,\% (C4) vs 97\,\% (C1) --- insuffisant pour un déploiement de dépistage sans amélioration (perte focalisée, pré-entraînement vidéo réel, multi-centres).
+\textbf{Pourquoi ImageNet gagne sur T3.}
+Les images publiques Simula restent proches des statistiques d'images naturelles où le pré-entraînement ImageNet excelle.
+Avec un seul centre, le LOO strict se réduit à un split poolé---interpréter avec prudence jusqu'à l'ajout de centres privés.
 
-\textbf{Typage des polypes.} Classe \emph{polype} unique ; le typage endoscopique ou histologique (adénome, hyperplasique, classification de Paris) nécessitera d'autres jeux de données --- perspective de travail futur.
+\textbf{Implications cliniques.}
+Le rappel polype passe de 97\,\% (C1) à 83\,\% (C4) sur T3---insuffisant pour un déploiement dépistage sans amélioration.
+Les tâches fine et pathologie ciblent d'autres workflows cliniques, pas le remplacement de l'histologie.
 
-\textbf{Comparaison 23 classes.} Les benchmarks HyperKvasir B2--B6 ($\approx$0,58 macro-F1) concernent une tâche plus fine ; notre regroupement en 3 classes vise d'autres décisions cliniques.
+\textbf{Histologie des polypes.}
+Le sous-typage endoscopique (adénome vs hyperplasique) nécessite ERCPMP ou PIBAdb ; intégration documentée dans la feuille de route classification.
 
-\textbf{Reproductibilité.} Tableaux générés automatiquement depuis les JSON de benchmark.
+\textbf{Reproductibilité.}
+Scripts de campagne, configurations d'arrêt anticipé et JSON versionnés ; tableaux auto-générés via \texttt{generate\_paper\_tables.py}.
+
+\subsection{Limites}
+\label{sec:limitations}
+
+\textbf{Données et splits.} Tous les résultats T3 proviennent d'un centre public unique (\texttt{simula}) et de \numsamples{} images fusionnées Kvasir/HyperKvasir.
+Les splits groupés sont implémentés, mais les images étiquetées publiques actuelles sont une frame par groupe ; la fuite multi-frames vidéo peut apparaître avec les pools non annotés.
+\textbf{Pré-entraînement.} Le CNN-JEPA utilise jusqu'à 4\,000 frames (proxy train étiqueté si le corpus $\sim$99\,k non annoté est indisponible).
+\textbf{Incertitude.} Les tableaux rapportent un seed unique ou moyenne$\pm$écart-type ; intervalles bootstrap et tests de significativité sont prévus.
+\textbf{Portée clinique.} Métriques frame-level, pas sensibilité vidéo à spécificité fixée ; validation prospective nécessaire au déploiement.
+\textbf{Calcul.} Expériences sur Apple MPS (AMD Radeon Pro 5300M) ; temps et énergie non benchmarkés ici.

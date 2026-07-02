@@ -30,33 +30,32 @@ Ablation C3 uses standard SE under the same JEPA pipeline; C4 enables mask-aware
 \subsection{Data and class taxonomy}
 \label{sec:data}
 
+\textbf{T3 (screening).}
 We merge Kvasir v1 and HyperKvasir labeled images into three classes:
 \begin{itemize}
   \item \textbf{Landmark:} cecum, pylorus, z-line, ileum, retroflexions.
   \item \textbf{Normal mucosa:} BBPS scores, hemorrhoids, impacted stool (non-lesion frames).
   \item \textbf{Polyp:} Kvasir \texttt{polyp}, HyperKvasir \texttt{polyps} and \texttt{dyed-lifted-polyps}.
 \end{itemize}
-Pathology classes (Barrett's, ulcerative colitis grades, esophagitis) are excluded.
-HyperKvasir provides \emph{no} histological polyp subtypes; all polyp appearances are merged into one class.
 Total: \numsamples{} images, center \texttt{simula}.
+Splits use \textbf{group-aware} stratification (procedure/video group per image; \texttt{prepare-colonoscopy-3class} reads HyperKvasir \texttt{image-labels.csv}).
+Current public stills are one frame per group; multi-frame video groups apply when unlabeled frame pools are used.
 
-\subsection{Experimental protocol (C0--C10)}
+\textbf{T1 (HyperKvasir-23).}
+Official Simula 23-class folders via \texttt{prepare-hyperkvasir}; 10{,}662 images, stratified 70/15/15.
+
+Planned extensions (not in main tables): T2 pathology-11 subset; JEPA fine-tunes on HK-23.
+
+\subsection{Experimental protocol}
 \label{sec:protocol}
 
-\begin{itemize}
-  \item \textbf{C0:} SE-ResNet scratch.
-  \item \textbf{C1:} SE-ResNet ImageNet pretrained.
-  \item \textbf{C2:} ResNet-50 + CNN-JEPA pretrain.
-  \item \textbf{C3/C4:} SE + CNN-JEPA (standard vs mask-aware SE).
-  \item \textbf{C5:} frozen endoscopy teacher (same JEPA checkpoint).
-  \item \textbf{C7--C9:} C4 with 10/25/50\% training labels.
-  \item \textbf{C10:} LOO aggregate for C4 across centers (one fold available).
-\end{itemize}
-Fine-tuning adds a linear three-class head; selection by validation macro-F1 (patience 5, max 30 epochs).
+\textbf{T3 (C0--C10).} Screening three-class runs with label fractions C7--C9.
+
+\textbf{T1 (B2--B6).} ResNet, SE-ResNet, dual-stream on HyperKvasir-23 (supervised only in this manuscript).
 
 \subsection{Metrics}
 Primary: \textbf{macro-F1} on validation/test.
-Clinical secondary: \textbf{polyp recall} (true polyp rate among predicted polyps row in confusion matrix).
+Clinical secondary: \textbf{polyp recall} $= \mathrm{TP}/(\mathrm{TP}+\mathrm{FN})$ for the polyp class (sensitivity among true polyps).
 
 \subsection{Implementation}
 PyTorch on Apple MPS; open repository \texttt{endoscopy-resnet}.

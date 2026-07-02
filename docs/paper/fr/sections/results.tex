@@ -6,6 +6,7 @@
 \input{../shared/figures/label_curve.tex}
 \input{../shared/figures/confusion_c4.tex}
 
+\subsection{Dépistage trois classes (T3)}
 Le tableau~\ref{tab:main} résume la comparaison principale sur le split test Simula.
 ImageNet (C1) obtient la meilleure macro-F1 (0,989) et le meilleur rappel polype (0,971).
 C4 (CNN-JEPA + SE sensible au masque) atteint macro-F1 0,910 et rappel polype 0,829.
@@ -15,6 +16,11 @@ Le scratch (C0) est légèrement inférieur (macro-F1 0,899).
 
 \textbf{Efficacité en labels.} La macro-F1 de C4 progresse de 0,825 (10\,\%) à 0,907 (50\,\%) et 0,910 (100\,\%), mais reste sous C1.
 
-\textbf{Confusions.} Pour C4, les erreurs polype concernent surtout les repères (12,4\,\%) et la muqueuse normale (4,7\,\%) --- figure~\ref{fig:confusion}.
+\subsection{HyperKvasir 23 classes (T1)}
+Le tableau~\ref{tab:hk23} rapporte les baselines supervisées B2--B6.
+La macro-F1 varie d'environ 0,44 à 0,59 tandis que l'accuracy dépasse 0,87 (déséquilibre des classes).
+B6 et B2 diffèrent de 0,001 en macro-F1 (0,586 vs 0,585)---bruit d'un seul run ; une évaluation multi-seed est nécessaire.
 
-\textbf{LOO.} Macro-F1 moyenne C10 pour C4 : 0,910 ($n=1$ fold).
+\textbf{Confusions (T3).} Pour C4, les erreurs polype concernent surtout les repères (12,4\,\%) et la muqueuse normale (4,7\,\%) --- figure~\ref{fig:confusion}.
+
+\textbf{Mise en garde sur les splits.} Les chiffres T3 actuels utilisent des splits stratifiés par image (pas groupés par procédure) ; la macro-F1 de C1 peut être optimiste.

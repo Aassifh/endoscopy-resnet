@@ -19,6 +19,26 @@ RESULTS_DIR="benchmarks/ml/results"
 DATA_ALL="data/colonoscopy_3class/all"
 JEPA_CKPT="checkpoints/jepa/c4_mask_aware_shared.pt"
 JEPA_CKPT_RESNET="checkpoints/jepa/c2_resnet_jepa_shared.pt"
+BENCHMARK_SEED="${BENCHMARK_SEED:-42}"
+
+result_json_path() {
+  local run_id="$1"
+  if [[ "$BENCHMARK_SEED" == "42" ]]; then
+    echo "${RESULTS_DIR}/${run_id}_test.json"
+  else
+    echo "${RESULTS_DIR}/${run_id}_seed${BENCHMARK_SEED}_test.json"
+  fi
+}
+
+resolve_jepa_frames() {
+  for d in data/jepa_frames/hyperkvasir_unlabeled data/jepa_frames; do
+    if [[ -d "$d" ]] && [[ -n "$(find "$d" \( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' \) 2>/dev/null | head -1)" ]]; then
+      echo "$d"
+      return
+    fi
+  done
+  echo "$DATA_ALL/train"
+}
 
 resolve_data_dir() {
   local fold="$1"
@@ -124,7 +144,7 @@ if [[ -z "${run_id:-}" ]]; then
   exit 0
 fi
 
-result_json="${RESULTS_DIR}/${run_id}_test.json"
+result_json="$(result_json_path "$run_id")"
 if [[ -f "$result_json" ]]; then
   echo "Skip $run_id — $result_json exists"
   python3 - <<PY
@@ -161,10 +181,9 @@ fi
 
 case "$run_id" in
   pretrain_c4_shared)
-    FRAMES="data/jepa_frames"
-    if [[ ! -d "$FRAMES" ]] || [[ -z "$(find "$FRAMES" -name '*.jpg' 2>/dev/null | head -1)" ]]; then
-      echo "No JEPA frames; using labeled train images as proxy for smoke/pretrain."
-      FRAMES="$DATA_ALL/train"
+    FRAMES="$(resolve_jepa_frames)"
+    if [[ "$FRAMES" == "$DATA_ALL/train" ]]; then
+      echo "No dedicated JEPA frames; using labeled train images as proxy for pretrain."
     fi
     pixi run pretrain-jepa -- \
       --frames-dir "$FRAMES" \
@@ -174,7 +193,8 @@ case "$run_id" in
       --max-epochs "$PRETRAIN_MAX" \
       --patience "$PRETRAIN_PAT" \
       --batch-size "$PRETRAIN_BATCH" \
-      --max-samples $($SMOKE && echo 500 || echo "$PRETRAIN_SAMPLES")
+      --max-samples $($SMOKE && echo 500 || echo "$PRETRAIN_SAMPLES") \
+      --seed "$BENCHMARK_SEED"
     ;;
   C0_*)
     fold="${run_id#C0_}"
@@ -185,6 +205,7 @@ case "$run_id" in
       --epochs "$MAX_EPOCHS" --patience "$PATIENCE" \
       --pretrain-method scratch \
       --center-split "$fold" \
+      --seed "$BENCHMARK_SEED" \
       --output "checkpoints/jepa/${run_id}.pt"
     pixi run evaluate -- \
       --checkpoint "checkpoints/jepa/${run_id}.pt" \
@@ -201,6 +222,7 @@ case "$run_id" in
       --epochs "$MAX_EPOCHS" --patience "$PATIENCE" \
       --pretrain-method imagenet \
       --center-split "$fold" \
+      --seed "$BENCHMARK_SEED" \
       --output "checkpoints/jepa/${run_id}.pt"
     pixi run evaluate -- \
       --checkpoint "checkpoints/jepa/${run_id}.pt" \
@@ -209,10 +231,9 @@ case "$run_id" in
       --output "$result_json"
     ;;
   pretrain_c2_resnet_shared)
-    FRAMES="data/jepa_frames"
-    if [[ ! -d "$FRAMES" ]] || [[ -z "$(find "$FRAMES" -name '*.jpg' 2>/dev/null | head -1)" ]]; then
-      echo "No JEPA frames; using labeled train images as proxy for ResNet pretrain."
-      FRAMES="$DATA_ALL/train"
+    FRAMES="$(resolve_jepa_frames)"
+    if [[ "$FRAMES" == "$DATA_ALL/train" ]]; then
+      echo "No dedicated JEPA frames; using labeled train images as proxy for ResNet pretrain."
     fi
     pixi run pretrain-jepa -- \
       --frames-dir "$FRAMES" \
@@ -221,7 +242,8 @@ case "$run_id" in
       --max-epochs "$PRETRAIN_MAX" \
       --patience "$PRETRAIN_PAT" \
       --batch-size "$PRETRAIN_BATCH" \
-      --max-samples $($SMOKE && echo 500 || echo "$PRETRAIN_SAMPLES")
+      --max-samples $($SMOKE && echo 500 || echo "$PRETRAIN_SAMPLES") \
+      --seed "$BENCHMARK_SEED"
     ;;
   C2_*)
     fold="${run_id#C2_}"
@@ -233,6 +255,7 @@ case "$run_id" in
       --epochs "$MAX_EPOCHS" --patience "$PATIENCE" \
       --pretrain-method cnn_jepa_resnet \
       --center-split "$fold" \
+      --seed "$BENCHMARK_SEED" \
       --output "checkpoints/jepa/${run_id}.pt"
     pixi run evaluate -- \
       --checkpoint "checkpoints/jepa/${run_id}.pt" \
@@ -265,6 +288,7 @@ case "$run_id" in
       --epochs "$MAX_EPOCHS" --patience "$PATIENCE" \
       --pretrain-method "$pretrain_method" \
       --center-split "$fold" \
+      --seed "$BENCHMARK_SEED" \
       --output "checkpoints/jepa/${run_id}.pt"
     pixi run evaluate -- \
       --checkpoint "checkpoints/jepa/${run_id}.pt" \
@@ -289,6 +313,7 @@ case "$run_id" in
       --pretrain-method cnn_jepa_mask_aware \
       --center-split "$fold" \
       --label-fraction "$frac" \
+      --seed "$BENCHMARK_SEED" \
       --output "checkpoints/jepa/${run_id}.pt"
     pixi run evaluate -- \
       --checkpoint "checkpoints/jepa/${run_id}.pt" \

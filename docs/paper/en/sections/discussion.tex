@@ -2,22 +2,33 @@
 \label{sec:discussion}
 
 \textbf{Methodological vs empirical contribution.}
-We separate the \emph{pipeline} (CNN-JEPA + mask-aware SE + C0--C10 protocol) from \emph{empirical gains} on public Simula data.
-The pipeline is reusable when unlabeled video and multi-center labels become available; current numbers do not support claiming superiority over ImageNet.
+We separate the \emph{pipeline} (CNN-JEPA + mask-aware SE + unified T1/T3 protocol) from \emph{empirical gains} on public Simula data.
+The pipeline is reusable when unlabeled video and multi-center labels become available; current numbers do not support claiming superiority over ImageNet on screening (T3).
 
-\textbf{Why ImageNet wins here.}
+\textbf{Task difficulty and metrics.}
+Absolute macro-F1 drops from $\approx$0.99 (T3, C1) to $\approx$0.58 (T1, B6) as class count and clinical heterogeneity increase.
+Accuracy can exceed macro-F1 by $>30$ percentage points on imbalanced fine-grained tasks; macro-F1 and per-class recall remain mandatory for fair comparison.
+
+\textbf{Why ImageNet wins on T3.}
 Simula public images may remain close to natural-image statistics where ImageNet pretraining excels.
-Additionally, with a single center, strict LOO degenerates to a pooled split---reported LOO should be interpreted cautiously until private centers are added.
+With a single center, strict LOO degenerates to a pooled split---reported LOO should be interpreted cautiously until private centers are added.
 
 \textbf{Clinical implications.}
-Polyp recall drops from 97\% (C1) to 83\% (C4) on test---unacceptable for screening deployment without further improvement (focal loss, larger domain pretrain on real video, multi-center training).
+Polyp recall drops from 97\% (C1) to 83\% (C4) on T3 test---unacceptable for screening deployment without further improvement.
+Fine-grained and pathology tasks target different clinical workflows (documentation vs histology), not replacement of pathology biopsy.
 
-\textbf{Polyp class granularity.}
-We use one \emph{polyp} class (including dyed-lifted polyps).
-Endoscopic or histological subtyping (adenoma vs hyperplastic, Paris morphology) requires dedicated labels not present in HyperKvasir; we note this as future work.
-
-\textbf{Comparison to 23-class benchmarks.}
-HyperKvasir B2--B6 macro-F1 $\approx$0.58 reflects a harder fine-grained task; our three-class aggregation raises absolute scores but targets different clinical decisions.
+\textbf{Polyp histology.}
+Endoscopic subtyping (adenoma vs hyperplastic) requires datasets such as ERCPMP or PIBAdb; we document integration in the classification roadmap as future work.
 
 \textbf{Reproducibility.}
-All commands, early-stop configs, and JSON results are versioned in the repository; tables in this paper are auto-generated from benchmark JSON.
+Campaign scripts, early-stop configs, and JSON results are versioned; tables in this paper are auto-generated from benchmark JSON via \texttt{generate\_paper\_tables.py}.
+
+\subsection{Limitations}
+\label{sec:limitations}
+
+\textbf{Data and splits.} All T3 results use a single public center (\texttt{simula}) and \numsamples{} still frames merged from Kvasir and HyperKvasir.
+Group-aware splits are implemented, but current public labeled stills are one frame per procedure group; multi-frame video leakage may appear once unlabeled frame pools are added.
+\textbf{Pretraining.} CNN-JEPA pretraining currently uses up to 4{,}000 frames (labeled-train proxy when the $\sim$99k unlabeled HyperKvasir corpus is unavailable).
+\textbf{Uncertainty.} Tables report single-seed or mean$\pm$std over seeds when available; bootstrap confidence intervals and significance tests are planned.
+\textbf{Clinical scope.} We report frame-level classification metrics, not video-level sensitivity at fixed specificity; deployment would require prospective validation.
+\textbf{Compute.} Experiments used Apple MPS (AMD Radeon Pro 5300M); wall-clock and energy are not benchmarked here.

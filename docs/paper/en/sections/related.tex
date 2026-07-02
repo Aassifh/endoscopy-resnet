@@ -12,8 +12,9 @@ Under JEPA block masking, standard GAP averages over masked zeros and can bias c
 
 \textbf{JEPA and self-supervision.}
 I-JEPA~\cite{assran2023ijepa} uses Vision Transformers; we employ a \emph{CNN-JEPA} with block masking and a convolutional predictor on feature maps---better suited to edge deployment than ViT foundations.
+We do not claim to invent convolutional latent-prediction pretraining; our novelty is the \textbf{mask-aware SE integration} and \textbf{reproducible benchmark protocol} for colonoscopy classification.
 Related latent-prediction methods include BYOL~\cite{grill2020byol}.
-Medical JEPA literature covers other modalities; colonoscopy-specific CNN-JEPA pretraining remains unexplored to our knowledge.
+Medical self-supervised literature covers other modalities; we position colonoscopy CNN-JEPA as an empirical baseline within a unified benchmark.
 
 \textbf{Polyp detection.}
 Classical CAD systems~\cite{tajbakhsh2016cad} emphasize polyp \emph{sensitivity}.

@@ -2,17 +2,19 @@
 \label{sec:intro}
 
 Colonoscopy is the gold standard for colorectal cancer screening.
-Computer-aided detection (CAD) systems analyze individual frames to flag suspected polyps and to confirm anatomical landmarks (cecum, ileum) required for quality metrics.
-Deep convolutional networks are attractive for near real-time deployment, yet they require large labeled datasets and often overfit a single hospital's appearance.
+Computer-aided detection (CAD) systems analyze individual frames to flag suspected polyps and to confirm anatomical landmarks required for quality metrics.
+Deep convolutional networks are attractive for near real-time deployment, yet they require large labeled datasets, and published results are hard to compare across architectures, pretraining regimes, and task definitions.
 
-Self-supervised learning can reduce annotation cost by pretraining on unlabeled video frames.
-Joint-Embedding Predictive Architectures (JEPA)~\cite{lecun2022path,assran2023ijepa} learn by predicting latent representations of masked views instead of reconstructing pixels.
-Medical JEPA variants exist for ultrasound and MRI, but not for colonoscopy with lightweight CNN backbones suitable for clinical deployment.
+Public benchmarks mix binary polyp detection, collapsed three-class screening, and fine-grained multi-class taxonomies without a shared protocol or codebase.
+Self-supervised pretraining may reduce annotation cost, but its benefit over ImageNet transfer for endoscopy remains an empirical question---not a settled claim.
 
-\enbrief{We provide an open, reproducible pipeline: unsupervised CNN-JEPA pretraining on colonoscopy frames, mask-aware SE blocks compatible with JEPA masking, and a three-class fine-tuning benchmark (landmark / normal mucosa / polyp) with label-efficiency and leave-one-center-out protocols.
-We do \emph{not} claim state-of-the-art accuracy over ImageNet on public Simula data; we report results honestly and release code.}
+Joint-Embedding Predictive Architectures (JEPA)~\cite{lecun2022path,assran2023ijepa} learn by predicting latent representations of masked views.
+We adapt a \emph{convolutional} JEPA to colonoscopy frames with mask-aware squeeze-and-excitation (SE) blocks compatible with spatial masking during pretraining.
+
+\enbrief{We provide an open, reproducible \textbf{benchmark and baseline implementation}---not a claim that domain JEPA beats ImageNet on public Simula data.
+Our primary contribution is the protocol, code, and honest reporting on completed tasks T3 (screening) and T1 (HyperKvasir-23).}
 
 \textbf{Contributions.}
-(1)~\textbf{Method:} a convolutional JEPA (\method{}) on \backbone{} for unlabeled endoscopy frames.
-(2)~\textbf{Technique:} mask-aware SE blocks using mask-weighted global average pooling under spatial masking.
-(3)~\textbf{Evaluation:} reproducible C0--C10 benchmark on three clinical classes with early stopping, label fractions (10/25/50\%), and LOO framework (currently one public center).
+(1)~\textbf{Method:} CNN-JEPA on SE-ResNet-50 with mask-aware channel attention for masked pretraining.
+(2)~\textbf{Benchmark:} reproducible C0--C10 (T3) and B2--B6 (T1) runs with early stopping, JSON metrics, and auto-generated tables.
+(3)~\textbf{Empirical study:} ImageNet transfer outperforms domain CNN-JEPA on the current public splits; we document label-efficiency trends and ablations without overstating gains.

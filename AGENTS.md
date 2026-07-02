@@ -42,6 +42,7 @@ python -m pytest tests/
 
 - `data/kvasir/`, `data/hyperkvasir/`, `data/colonoscopy_3class/` — download via pixi prepare scripts on Mac.
 - `checkpoints/` — training outputs, gitignored.
+- **External storage:** large corpora can live on **TOSHIBA EXT** — see `docs/setup-external-data.md` and `pixi run migrate-external-data`.
 
 ## Mobile / iOS
 

@@ -42,7 +42,6 @@ python -m pytest tests/
 
 - `data/kvasir/`, `data/hyperkvasir/`, `data/colonoscopy_3class/` — download via pixi prepare scripts on Mac.
 - `checkpoints/` — training outputs, gitignored.
-- **External storage:** `bash scripts/migrate_data_to_external.sh` — see `docs/setup-external-data.md`.
 
 ## Mobile / iOS
 

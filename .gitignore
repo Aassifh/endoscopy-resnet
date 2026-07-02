@@ -13,7 +13,6 @@ data/hyperkvasir/
 data/colonoscopy_3class/
 data/jepa_frames/
 data/private/
-data/DATA_ROOT.txt
 # Synthetic smoke data — regenerate: python scripts/prepare_benchmark_data.py
 data/train/
 data/val/

@@ -19,6 +19,7 @@ RESULTS_DIR="benchmarks/ml/results"
 DATA_ALL="data/colonoscopy_3class/all"
 JEPA_CKPT="checkpoints/jepa/c4_mask_aware_shared.pt"
 JEPA_CKPT_RESNET="checkpoints/jepa/c2_resnet_jepa_shared.pt"
+JEPA_CKPT_C3="checkpoints/jepa/c3_se_standard_shared.pt"
 BENCHMARK_SEED="${BENCHMARK_SEED:-42}"
 
 result_json_path() {
@@ -85,6 +86,7 @@ folds = [f"fold_{c}" for c in centers] if centers else ["fold_simula"]
 queue = []
 # Shared pretrain (SE mask-aware + ResNet for C2)
 queue.append("pretrain_c4_shared")
+queue.append("pretrain_c3_se_standard")
 queue.append("pretrain_c2_resnet_shared")
 # Core screening runs C0--C5 on each fold
 for fold in folds:
@@ -126,9 +128,29 @@ fi
 
 run_id="$(python3 - <<PY
 import json
+import os
+from pathlib import Path
+
 s = json.load(open("$STATE_FILE"))
+seed = os.environ.get("BENCHMARK_SEED", "42")
+results = Path("$RESULTS_DIR")
+pretrain_ckpts = {
+    "pretrain_c4_shared": Path("$JEPA_CKPT"),
+    "pretrain_c3_se_standard": Path("$JEPA_CKPT_C3"),
+    "pretrain_c2_resnet_shared": Path("$JEPA_CKPT_RESNET"),
+}
+
+def job_done(job: str) -> bool:
+    if job in pretrain_ckpts:
+        return pretrain_ckpts[job].is_file()
+    if seed == "42":
+        path = results / f"{job}_test.json"
+    else:
+        path = results / f"{job}_seed{seed}_test.json"
+    return path.is_file()
+
 for job in s["queue"]:
-    if job not in s.get("completed", []):
+    if not job_done(job):
         print(job)
         break
 PY
@@ -175,6 +197,21 @@ if $SMOKE; then
 fi
 
 case "$run_id" in
+  pretrain_c3_se_standard)
+    FRAMES="$(resolve_jepa_frames)"
+    if [[ "$FRAMES" == "$DATA_ALL/train" ]]; then
+      echo "No dedicated JEPA frames; using labeled train images as proxy for C3 standard-SE pretrain."
+    fi
+    pixi run pretrain-jepa -- \
+      --frames-dir "$FRAMES" \
+      --backbone seresnet50 \
+      --output "$JEPA_CKPT_C3" \
+      --max-epochs "$PRETRAIN_MAX" \
+      --patience "$PRETRAIN_PAT" \
+      --batch-size "$PRETRAIN_BATCH" \
+      --max-samples $($SMOKE && echo 500 || echo "$PRETRAIN_SAMPLES") \
+      --seed "$BENCHMARK_SEED"
+    ;;
   pretrain_c4_shared)
     FRAMES="$(resolve_jepa_frames)"
     if [[ "$FRAMES" == "$DATA_ALL/train" ]]; then
@@ -268,13 +305,19 @@ case "$run_id" in
     if [[ "$cid" == "C3" ]]; then
       mask_flag=""
       pretrain_method="cnn_jepa_se_standard"
+      jepa="$JEPA_CKPT_C3"
     elif [[ "$cid" == "C4" ]]; then
       mask_flag="--mask-aware-se"
       pretrain_method="cnn_jepa_mask_aware"
+      jepa="$JEPA_CKPT"
     elif [[ "$cid" == "C5" ]]; then
       mask_flag="--mask-aware-se"
       pretrain_method="frozen_teacher"
       jepa="$JEPA_CKPT"
+    fi
+    freeze_flag=""
+    if [[ "$cid" == "C5" ]]; then
+      freeze_flag="--freeze-backbone"
     fi
     pixi run train -- \
       --data-dir "$data_dir" \
@@ -284,6 +327,7 @@ case "$run_id" in
       --pretrain-method "$pretrain_method" \
       --center-split "$fold" \
       --seed "$BENCHMARK_SEED" \
+      $freeze_flag \
       --output "checkpoints/jepa/${run_id}.pt"
     pixi run evaluate -- \
       --checkpoint "checkpoints/jepa/${run_id}.pt" \

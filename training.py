@@ -55,6 +55,7 @@ class TrainConfig:
     jepa_checkpoint: str = ""
     mask_aware_se: bool = False
     label_fraction: float = 1.0
+    freeze_backbone: bool = False
 
 
 @dataclass
@@ -209,6 +210,13 @@ def run_training(
         from models.registry import load_jepa_into_classifier
 
         load_jepa_into_classifier(model, config.jepa_checkpoint, device=str(device))
+
+    if config.freeze_backbone:
+        for param in model.parameters():
+            param.requires_grad = False
+        if hasattr(model, "fc"):
+            for param in model.fc.parameters():
+                param.requires_grad = True
 
     criterion = nn.CrossEntropyLoss(label_smoothing=config.label_smoothing)
     optimizer = build_optimizer(model, config)

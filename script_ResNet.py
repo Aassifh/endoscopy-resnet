@@ -41,6 +41,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--pretrain-method", type=str, default="", help="Metadata: none, imagenet, cnn_jepa, …")
     p.add_argument("--center-split", type=str, default="", help="LOO fold id for metadata")
     p.add_argument("--label-fraction", type=float, default=-1.0, help="Fraction of train labels used")
+    p.add_argument(
+        "--freeze-backbone",
+        action="store_true",
+        help="Freeze backbone; train classifier head only (linear probe / frozen teacher)",
+    )
     return p.parse_args()
 
 
@@ -79,6 +84,7 @@ def main() -> None:
         jepa_checkpoint=args.jepa_checkpoint,
         mask_aware_se=args.mask_aware_se,
         label_fraction=args.label_fraction if args.label_fraction >= 0 else 1.0,
+        freeze_backbone=args.freeze_backbone,
     )
 
     print(f"Training {args.arch} (pretrained={args.pretrained}, early_stop={early_cfg})")
@@ -109,6 +115,7 @@ def main() -> None:
         "seed": config.seed,
         "num_classes": len(result.class_names),
         "jepa_checkpoint": args.jepa_checkpoint,
+        "freeze_backbone": args.freeze_backbone,
         "early_stopping": early_cfg.__dict__,
     }
     metrics = {

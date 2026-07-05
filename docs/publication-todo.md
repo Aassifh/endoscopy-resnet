@@ -32,14 +32,14 @@ Work top-to-bottom; each phase unblocks the next.
   - _Done when:_ no image from one procedure appears in more than one split.
 - [x] **1.2a C0–C5 + C7–C9** on grouped splits (seed 42, campaign complete 2026-07-05).
   C1 macro-F1 **0.979** (modest drop vs 0.989); C3=C4=C5 identical; tables in `results.tex`.
-- [ ] **1.2b B2–B6** HyperKvasir on grouped splits — still pending (`run_hyperkvasir_benchmarks.sh`).
+- [x] **1.2b B2–B6** HyperKvasir — JSON results present in `benchmarks/ml/results/hyperkvasir_b*_test.json`.
 - [ ] **1.3 Multi-seed.** ≥3 seeds per config; report **mean ± std** and
   bootstrap 95% CIs on macro-F1 and polyp recall.
-  _Infra: `benchmarks/ml/seeds.json`, `run_multi_seed_campaign.sh`, `generate_paper_tables.py`; re-runs pending._
+  _Running via `bash scripts/run_publication_pipeline.sh` (phase `multi_seed`)._
 - [ ] **1.4 Significance tests** for every "X beats Y" claim (paired across
   seeds / bootstrap). Soften or remove within-noise claims (B6 vs B2:
   0.586 vs 0.585; C2 vs C4).
-  _Script: `pixi run benchmark-stats` (needs multi-seed JSON outputs)._
+  _Phase `benchmark_stats` in publication pipeline._
 
 ---
 
@@ -47,13 +47,15 @@ Work top-to-bottom; each phase unblocks the next.
 
 - [ ] **2.1 Pretrain JEPA on HyperKvasir's ~99k unlabeled images** (not the ~4k
   labeled subset). Point the prepare/pretrain scripts at the unlabeled folder.
-  _Script added: `scripts/download_hyperkvasir_unlabeled.py` + `pixi run prepare-hyperkvasir-unlabeled`; campaign prefers `data/jepa_frames/hyperkvasir_unlabeled` when present._
+  _Pipeline phase `unlabeled_download` + `jepa_99k_pretrain`._
 - [ ] **2.2 Re-run C2–C5** fine-tunes from the new checkpoints, with grouped
   splits + multi-seed.
+  _Pipeline phase `c2_c5_99k_rerun`._
 - [ ] **2.3 Diagnose C3 = C4 = C5** (currently bit-identical: 0.9103 / 0.8285).
   Verify the ablations actually differ (log SE pooling path, confirm distinct
   checkpoints load). Either produce a real difference, or report that mask-aware
   SE has no effect and reframe it as a finding.
+  _Fixed: separate `c3_se_standard_shared` pretrain + `--freeze-backbone` for C5; phase `ablation_fix`._
 
 ---
 
@@ -62,9 +64,11 @@ Work top-to-bottom; each phase unblocks the next.
 - [ ] **3.1 Label-efficiency (C7–C9)** re-run under grouped/multi-seed. Strongest
   likely-positive result: if C4 > C1 at 10–25% labels, that is a publishable
   claim (aligns with H1's intent).
+  _Seed 42 done; multi-seed in pipeline._
 - [ ] **3.2 Cross-dataset external validation** (replaces missing multi-center):
   train on Kvasir → test on HyperKvasir, and reverse. Supports the
   "generalizes across hospitals" motivation without private data.
+  _Script: `bash scripts/run_cross_dataset_eval.sh` (pipeline phase `cross_dataset`)._
 - [x] **3.3 Drop or fix "LOO".** With one center, remove the C10 "LOO mean
   (n=1)" table or relabel it plainly as a pooled split.
 
@@ -100,6 +104,7 @@ Work top-to-bottom; each phase unblocks the next.
 
 - [ ] **6.1 Report sensitivity at fixed specificity** (and PR/ROC curves) for the
   polyp class — macro-F1 alone under-serves a screening claim.
+  _Script: `bash scripts/run_clinical_metrics.sh` (`evaluate.py --clinical-metrics`)._
 - [ ] **6.2 Add per-class counts, data-availability statement, ethics note, and a
   consolidated Limitations paragraph** (single center, image counts, compute).
   _Partial: Limitations + data/ethics subsections (EN+FR); PR/ROC pending._

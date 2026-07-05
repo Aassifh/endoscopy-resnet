@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.endoscopy-resnet.publication-pipeline</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>WORKER_SCRIPT</string>
+    <string>FORCE_FLAG</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>REPO_ROOT</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+  </dict>
+  <key>StandardOutPath</key>
+  <string>REPO_ROOT/benchmarks/ml/results/publication_pipeline.log</string>
+  <key>StandardErrorPath</key>
+  <string>REPO_ROOT/benchmarks/ml/results/publication_pipeline.log</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <false/>
+</dict>
+</plist>

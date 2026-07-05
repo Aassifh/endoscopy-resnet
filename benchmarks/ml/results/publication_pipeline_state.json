@@ -1,0 +1,18 @@
+{
+  "phases": [
+    "verify_b2_b6",
+    "ablation_fix",
+    "clinical_metrics",
+    "multi_seed",
+    "cross_dataset",
+    "unlabeled_download",
+    "jepa_99k_pretrain",
+    "c2_c5_99k_rerun",
+    "benchmark_stats",
+    "finalize"
+  ],
+  "completed": [
+    "verify_b2_b6"
+  ],
+  "current": "ablation_fix"
+}

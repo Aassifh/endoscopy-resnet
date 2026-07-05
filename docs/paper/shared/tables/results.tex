@@ -8,12 +8,12 @@
 \toprule
 Method & Macro-F1 & Polyp recall \\
 \midrule
-SE-ResNet scratch & 0.899 & 0.836 \\
-SE-ResNet ImageNet & 0.989 & 0.971 \\
-ResNet-50 + CNN-JEPA & 0.913 & 0.778 \\
-SE + CNN-JEPA (SE standard) & 0.910 & 0.828 \\
-SE + CNN-JEPA (SE mask-aware) & 0.910 & 0.828 \\
-SE + frozen teacher & 0.910 & 0.828 \\
+SE-ResNet scratch & 0.944 & 0.879 \\
+SE-ResNet ImageNet & 0.979 & 0.975 \\
+ResNet-50 + CNN-JEPA & 0.909 & 0.746 \\
+SE + CNN-JEPA (SE standard) & 0.942 & 0.846 \\
+SE + CNN-JEPA (SE mask-aware) & 0.942 & 0.846 \\
+SE + frozen teacher & 0.942 & 0.846 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -26,11 +26,11 @@ SE + frozen teacher & 0.910 & 0.828 \\
 \toprule
 Setting & Macro-F1 & Polyp recall \\
 \midrule
-ImageNet (100\% labels) & 0.989 & 0.971 \\
-C4 (100\% labels) & 0.910 & 0.828 \\
-C4 @ 10\% labels & 0.825 & 0.726 \\
-C4 @ 25\% labels & 0.871 & 0.712 \\
-C4 @ 50\% labels & 0.907 & 0.723 \\
+ImageNet (100\% labels) & 0.979 & 0.975 \\
+C4 (100\% labels) & 0.942 & 0.846 \\
+C4 @ 10\% labels & 0.884 & 0.756 \\
+C4 @ 25\% labels & 0.902 & 0.799 \\
+C4 @ 50\% labels & 0.912 & 0.809 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -60,9 +60,9 @@ B6 & Dual-stream & ImageNet & 0.586 & 0.888 \\
 \toprule
 Class & Precision & Recall & F1 \\
 \midrule
-Landmark & 0.940 & 0.930 & 0.930 \\
-Normal mucosa & 0.890 & 0.990 & 0.940 \\
-Polyp & 0.900 & 0.830 & 0.860 \\
+Landmark & 0.900 & 0.980 & 0.940 \\
+Normal mucosa & 0.980 & 0.990 & 0.990 \\
+Polyp & 0.970 & 0.850 & 0.900 \\
 \bottomrule
 \end{tabular}
 \end{table}

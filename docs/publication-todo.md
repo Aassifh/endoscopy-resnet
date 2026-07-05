@@ -30,9 +30,9 @@ Work top-to-bottom; each phase unblocks the next.
   splitting (`GroupShuffleSplit` / `GroupKFold`) keyed on procedure/patient (or
   at least source video/sequence).
   - _Done when:_ no image from one procedure appears in more than one split.
-- [ ] **1.2 Re-run all C0–C5 + B2–B6** on grouped splits. Expect the near-perfect
-  C1 (0.989) to drop — that is the honest number.
-  _Queue updated (C0–C5, no C10); run: `bash scripts/run_article_campaign_loop.sh --force`_
+- [x] **1.2a C0–C5 + C7–C9** on grouped splits (seed 42, campaign complete 2026-07-05).
+  C1 macro-F1 **0.979** (modest drop vs 0.989); C3=C4=C5 identical; tables in `results.tex`.
+- [ ] **1.2b B2–B6** HyperKvasir on grouped splits — still pending (`run_hyperkvasir_benchmarks.sh`).
 - [ ] **1.3 Multi-seed.** ≥3 seeds per config; report **mean ± std** and
   bootstrap 95% CIs on macro-F1 and polyp recall.
   _Infra: `benchmarks/ml/seeds.json`, `run_multi_seed_campaign.sh`, `generate_paper_tables.py`; re-runs pending._

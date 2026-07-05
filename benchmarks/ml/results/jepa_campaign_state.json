@@ -6,13 +6,12 @@
     "C0_fold_simula",
     "C1_fold_simula",
     "C2_fold_simula",
-    "C4_fold_simula",
     "C3_fold_simula",
+    "C4_fold_simula",
     "C5_fold_simula",
     "C7_fold_simula",
     "C8_fold_simula",
-    "C9_fold_simula",
-    "C10_summary"
+    "C9_fold_simula"
   ],
   "completed": [
     "pretrain_c4_shared",
@@ -20,13 +19,12 @@
     "C0_fold_simula",
     "C1_fold_simula",
     "C2_fold_simula",
-    "C4_fold_simula",
     "C3_fold_simula",
+    "C4_fold_simula",
     "C5_fold_simula",
     "C7_fold_simula",
     "C8_fold_simula",
-    "C9_fold_simula",
-    "C10_summary"
+    "C9_fold_simula"
   ],
   "current": null,
   "early_stop_defaults": {

@@ -8,26 +8,26 @@
     "normal_mucosa",
     "polyp"
   ],
-  "loss": 0.25301568683260234,
-  "accuracy": 0.9120725989341736,
-  "macro_f1": 0.9070317431347217,
-  "weighted_f1": 0.9085664723588083,
+  "loss": 0.22232512500745139,
+  "accuracy": 0.9105214476585388,
+  "macro_f1": 0.9121057877544795,
+  "weighted_f1": 0.9093572004462747,
   "confusion_matrix": [
     [
-      748,
-      3,
-      14
+      1284,
+      20,
+      62
     ],
     [
-      3,
-      285,
-      1
+      13,
+      851,
+      2
     ],
     [
-      96,
-      9,
-      274
+      165,
+      28,
+      816
     ]
   ],
-  "classification_report": "               precision    recall  f1-score   support\n\n     landmark       0.88      0.98      0.93       765\nnormal_mucosa       0.96      0.99      0.97       289\n        polyp       0.95      0.72      0.82       379\n\n     accuracy                           0.91      1433\n    macro avg       0.93      0.90      0.91      1433\n weighted avg       0.92      0.91      0.91      1433\n"
+  "classification_report": "               precision    recall  f1-score   support\n\n     landmark       0.88      0.94      0.91      1366\nnormal_mucosa       0.95      0.98      0.96       866\n        polyp       0.93      0.81      0.86      1009\n\n     accuracy                           0.91      3241\n    macro avg       0.92      0.91      0.91      3241\n weighted avg       0.91      0.91      0.91      3241\n"
 }

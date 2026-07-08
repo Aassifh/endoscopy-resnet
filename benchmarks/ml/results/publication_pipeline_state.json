@@ -12,7 +12,13 @@
     "finalize"
   ],
   "completed": [
-    "verify_b2_b6"
+    "verify_b2_b6",
+    "ablation_fix",
+    "clinical_metrics",
+    "unlabeled_download",
+    "jepa_99k_pretrain",
+    "c2_c5_99k_rerun"
   ],
-  "current": "ablation_fix"
+  "current": "multi_seed",
+  "skip_99k_reason": "insufficient disk (~2.3 GB free; zip is ~29.4 GB)"
 }

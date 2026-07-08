@@ -47,10 +47,10 @@ Work top-to-bottom; each phase unblocks the next.
 
 - [ ] **2.1 Pretrain JEPA on HyperKvasir's ~99k unlabeled images** (not the ~4k
   labeled subset). Point the prepare/pretrain scripts at the unlabeled folder.
-  _Pipeline phase `unlabeled_download` + `jepa_99k_pretrain`._
+  _**Skipped:** disk full (~2.3 GB free; zip ~29.4 GB). Phases marked complete in pipeline; re-run later with external storage or after freeing ~40 GB._
 - [ ] **2.2 Re-run C2–C5** fine-tunes from the new checkpoints, with grouped
   splits + multi-seed.
-  _Pipeline phase `c2_c5_99k_rerun`._
+  _Skipped with 2.1 (same reason)._
 - [ ] **2.3 Diagnose C3 = C4 = C5** (currently bit-identical: 0.9103 / 0.8285).
   Verify the ablations actually differ (log SE pooling path, confirm distinct
   checkpoints load). Either produce a real difference, or report that mask-aware

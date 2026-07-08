@@ -47,6 +47,33 @@ p.write_text(json.dumps(s, indent=2) + "\n")
 PY
 }
 
+unlabeled_ready() {
+  [[ -d data/jepa_frames/hyperkvasir_unlabeled ]] && \
+    [[ -n "$(find data/jepa_frames/hyperkvasir_unlabeled -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' 2>/dev/null | head -1)" ]]
+}
+
+should_skip_99k() {
+  if [[ "${PUBLICATION_SKIP_99K:-}" == "1" ]]; then
+    return 0
+  fi
+  if unlabeled_ready; then
+    return 1
+  fi
+  # hyper-kvasir-unlabeled-images.zip is ~29.4 GB; need zip + extract headroom.
+  local avail_kb
+  avail_kb="$(df -k "$ROOT" | awk 'NR==2 {print $4}')"
+  local min_kb=$((40 * 1024 * 1024))
+  [[ "${avail_kb:-0}" -lt "$min_kb" ]]
+}
+
+skip_99k_phases() {
+  local reason="$1"
+  echo "SKIP 99k phases ($reason). Need ~30 GB zip + extract; set PUBLICATION_SKIP_99K=0 and free disk to run later." | tee -a "$LOG"
+  phase_done unlabeled_download
+  phase_done jepa_99k_pretrain
+  phase_done c2_c5_99k_rerun
+}
+
 next_phase() {
   python3 - <<PY
 import json
@@ -128,14 +155,18 @@ while true; do
       bash scripts/run_cross_dataset_eval.sh 2>&1 | tee -a "$LOG"
       ;;
     unlabeled_download)
-      if [[ -d data/jepa_frames/hyperkvasir_unlabeled ]] && \
-         [[ "$(find data/jepa_frames/hyperkvasir_unlabeled -name '*.jpg' 2>/dev/null | head -1)" ]]; then
+      if should_skip_99k; then
+        skip_99k_phases "disk or PUBLICATION_SKIP_99K"
+      elif unlabeled_ready; then
         echo "Unlabeled frames already prepared." | tee -a "$LOG"
       else
         pixi run prepare-hyperkvasir-unlabeled 2>&1 | tee -a "$LOG"
       fi
       ;;
     jepa_99k_pretrain)
+      if should_skip_99k; then
+        skip_99k_phases "skipped — no unlabeled corpus"
+      else
       FRAMES="data/jepa_frames/hyperkvasir_unlabeled"
       rm -f checkpoints/jepa/c4_mask_aware_shared.pt checkpoints/jepa/c3_se_standard_shared.pt checkpoints/jepa/c2_resnet_jepa_shared.pt
       pixi run pretrain-jepa -- \
@@ -150,11 +181,16 @@ while true; do
         --frames-dir "$FRAMES" --backbone resnet50 \
         --output checkpoints/jepa/c2_resnet_jepa_shared.pt \
         --max-epochs 80 --patience 10 --batch-size 16 --max-samples 0 --seed 42 2>&1 | tee -a "$LOG"
+      fi
       ;;
     c2_c5_99k_rerun)
+      if should_skip_99k; then
+        skip_99k_phases "skipped — no 99k JEPA checkpoints"
+      else
       for seed in 42 43 44; do
         BENCHMARK_SEED="$seed" bash scripts/rerun_c2_c5_after_99k.sh 2>&1 | tee -a "$LOG"
       done
+      fi
       ;;
     benchmark_stats)
       pixi run benchmark-stats 2>&1 | tee -a "$LOG"
